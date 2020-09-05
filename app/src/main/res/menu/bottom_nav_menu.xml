@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/news_150"
+
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_epidemic"
+        android:icon="@drawable/earth"
+        android:title="@string/title_epidemic" />
+
+    <item
+        android:id="@+id/navigation_experts"
+        android:icon="@drawable/crowd"
+        android:title="@string/title_experts" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/icon_user"
+        android:title="@string/title_user" />
+
+</menu>
