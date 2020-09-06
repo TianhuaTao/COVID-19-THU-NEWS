@@ -1,4 +1,4 @@
-package com.taotianhua.covidnews.ui.home;
+package com.taotianhua.covidnews.ui.home.tabPage;
 
 import android.content.Context;
 import android.content.res.TypedArray;

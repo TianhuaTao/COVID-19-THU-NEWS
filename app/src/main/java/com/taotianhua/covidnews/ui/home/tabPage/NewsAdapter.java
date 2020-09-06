@@ -1,4 +1,4 @@
-package com.taotianhua.covidnews.ui.home;
+package com.taotianhua.covidnews.ui.home.tabPage;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.taotianhua.covidnews.COVIDNewsApplication;
-import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.model.EventBrief;
 
 import org.jetbrains.annotations.NotNull;

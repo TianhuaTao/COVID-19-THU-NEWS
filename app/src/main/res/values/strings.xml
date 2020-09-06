@@ -20,4 +20,6 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="covid_19_knowledge_graph">Integrate multiple open knowledge graphs to help world fight against COVID-19</string>
+    <string name="covid_19_knowledge_graph_title">COVID-19 Knowledge Graph</string>
 </resources>

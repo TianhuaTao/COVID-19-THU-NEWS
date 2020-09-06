@@ -1,4 +1,4 @@
-package com.taotianhua.covidnews.ui.home;
+package com.taotianhua.covidnews.ui.home.tabPage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.model.EventBrief;
@@ -23,7 +22,6 @@ import com.taotianhua.covidnews.ui.home.detail.NewsDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class HomeTabFragment extends Fragment {
