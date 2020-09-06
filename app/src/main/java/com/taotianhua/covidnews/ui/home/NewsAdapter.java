@@ -1,15 +1,22 @@
 package com.taotianhua.covidnews.ui.home;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.taotianhua.covidnews.COVIDNewsApplication;
 import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.model.EventBrief;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
+import static com.taotianhua.covidnews.R.*;
 
 public class NewsAdapter  extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder>{
     private List<EventBrief> mDataset;
@@ -33,34 +40,67 @@ public class NewsAdapter  extends RecyclerView.Adapter<NewsAdapter.NewsViewHolde
                             listener.onItemClick(position);
                         }
                     }
+                    view.setBackgroundColor(COVIDNewsApplication.getAppContext().getColor( color.colorRead));
+
                 }
             });
+        }
+    }
+
+    private class LoadingHolder extends RecyclerView.ViewHolder{
+
+        public LoadingHolder(@NonNull View itemView) {
+            super(itemView);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public NewsAdapter(List<EventBrief> myDataset) {
         mDataset = myDataset;
+//        mDataset.add(null);
+    }
+    public void setDataSet(List<EventBrief> newList){
+        mDataset.clear();
+        mDataset.addAll(newList);
+        notifyDataSetChanged();
+    }
+
+    final int VIEW_TYPE_LOADING = 0;
+    final int VIEW_TYPE_ITEM = 1;
+
+    @Override
+    public int getItemViewType(int position) {
+        return mDataset.get(position)==null? VIEW_TYPE_LOADING:VIEW_TYPE_ITEM;
     }
 
     // Create new views (invoked by the layout manager)
+    @NotNull
     @Override
-    public NewsAdapter.NewsViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
-        // create a new view
-        NewsListItemView v = (NewsListItemView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.sample_news_list_item_view, parent, false);
+    public NewsViewHolder onCreateViewHolder(ViewGroup parent,
+                                             int viewType) {
 
-        NewsViewHolder vh = new NewsViewHolder(v,mListener);
-        return vh;
+            // create a new view
+            NewsListItemView v = (NewsListItemView) LayoutInflater.from(parent.getContext())
+                    .inflate(layout.sample_news_list_item_view, parent, false);
+
+            NewsViewHolder vh = new NewsViewHolder(v,mListener);
+            return vh;
+
+
+
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(NewsViewHolder holder, int position) {
-
-        holder.cardView.setTitle(mDataset.get(position).getTitle());
-        holder.cardView.setContent(mDataset.get(position).getContent());
+        EventBrief brief = mDataset.get(position);
+        holder.cardView.setTitle(brief.getTitle());
+        holder.cardView.setContent(brief.getContent());
+        if(brief.getAlreadyRead()){
+            holder.cardView.setBackgroundColor(COVIDNewsApplication.getAppContext().getColor( color.colorRead));
+        }else {
+            holder.cardView.setBackgroundColor(Color.WHITE);
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

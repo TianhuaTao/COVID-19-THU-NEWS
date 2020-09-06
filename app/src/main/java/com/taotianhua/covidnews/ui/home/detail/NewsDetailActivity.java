@@ -1,17 +1,13 @@
-package com.taotianhua.covidnews.ui.home;
+package com.taotianhua.covidnews.ui.home.detail;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.util.Pair;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import com.taotianhua.covidnews.R;
-import com.taotianhua.covidnews.network.Api;
-
-import org.w3c.dom.Text;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
@@ -27,8 +23,15 @@ public class NewsDetailActivity extends AppCompatActivity {
             TextView v_title = (TextView) findViewById(R.id.detail_title);
             TextView v_content= (TextView) findViewById(R.id.detail_content);
             v_title.setText(event.getTitle());
-            v_content.setText(event.getContent());
+            String content = event.getContent();
+            if(content==null || content.length()==0){
+                v_content.setText("该新闻内容为空");
+            }else {
+                v_content.setText(content);
+            }
+            v_content.setMovementMethod(new ScrollingMovementMethod());
         });
+
     }
 
     private  void getIncomingIntent(){

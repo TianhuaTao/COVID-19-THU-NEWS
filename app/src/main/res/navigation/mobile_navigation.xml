@@ -21,7 +21,7 @@
     <fragment
         android:id="@+id/navigation_experts"
         android:name="com.taotianhua.covidnews.ui.experts.ExpertsFragment"
-        android:label="@string/title_user"
+        android:label="@string/title_experts"
         tools:layout="@layout/fragment_user" />
     <fragment
         android:id="@+id/navigation_user"

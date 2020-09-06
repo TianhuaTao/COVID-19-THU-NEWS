@@ -35,7 +35,13 @@ public class NewsListItemView extends CardView {
     }
     public void setContent(String content){
         TextView textView = (TextView)  findViewById(R.id.contentText);
-        textView.setText(content);
+        if(content==null || content.length()==0){
+            textView.setText("该新闻内容为空");
+
+        }else {
+            textView.setText(content);
+
+        }
     }
 
 

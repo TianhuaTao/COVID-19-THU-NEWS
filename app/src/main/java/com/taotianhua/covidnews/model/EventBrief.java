@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.model;
 
+import com.taotianhua.covidnews.repository.LocalStorage;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,19 @@ public class EventBrief {
     private String source;
     private String title;
     private String type;
+
+    public Boolean getAlreadyRead() {
+//        return false;
+        return alreadyRead;
+    }
+
+    public void setAlreadyRead(Boolean alreadyRead) {
+        this.alreadyRead = alreadyRead;
+        //TODO
+    }
+
+    private Boolean alreadyRead;
+
     private List<String> urls = new ArrayList<>();
 
     public String getId() {
@@ -54,15 +69,15 @@ public class EventBrief {
             eventBrief.content= jsonObject.getString("content");
             eventBrief.title=  jsonObject.getString("title");
             eventBrief.type= jsonObject.getString("type");
+            eventBrief.alreadyRead = LocalStorage.exist(eventBrief.id);
 
-            JSONArray urlArray = jsonObject.getJSONArray("urls");
-            for (int i = 0; i < urlArray.length(); i++) {
-                eventBrief.urls.add(urlArray.getString(i));
-            }
+//            JSONArray urlArray = jsonObject.getJSONArray("urls");
+//            for (int i = 0; i < urlArray.length(); i++) {
+//                eventBrief.urls.add(urlArray.getString(i));
+//            }
         }catch (JSONException e){
             eventBrief = null;
         }
-
         return eventBrief;
     }
 

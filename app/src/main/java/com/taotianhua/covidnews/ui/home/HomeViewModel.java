@@ -1,11 +1,13 @@
 package com.taotianhua.covidnews.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.taotianhua.covidnews.network.Api;
 import com.taotianhua.covidnews.model.EventBrief;
+import com.taotianhua.covidnews.repository.Repository;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,36 +18,17 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<List<EventBrief>> events;
-
     public HomeViewModel() {
+
+    }
+
+    public int  getCatalogCount(){
+        return Repository.getInstance().getCatalog().size();
+    }
+
+    public String getCatalogName(int position){
+        return  Repository.getInstance().getCatalog().get(position);
     }
 
 
-    public LiveData<List<EventBrief>> getEvents() {
-        if(events ==null){
-            events = new MutableLiveData<>();
-            loadEventsAsync();
-        }
-        return events;
-    }
-
-    private void loadEventsAsync(){
-        // Do an asynchronous operation to fetch events.
-        new Thread(()->{
-            String listJson = Api.getEventListJson();
-            try {
-                JSONObject jObject = new JSONObject(listJson);
-                JSONArray data= jObject.getJSONArray("data");
-                List<EventBrief> briefs = new ArrayList<>();
-                for (int i = 0; i < data.length(); i++) {
-                    EventBrief brief = EventBrief.fromJson(data.getJSONObject(i));
-                    briefs.add(brief);
-                }
-                events.postValue(briefs);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }).start();
-    }
 }
