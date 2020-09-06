@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.ui.home;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -36,13 +38,20 @@ public class HomeTabViewModel extends ViewModel {
     private void loadEventsAsync( ){
         // Do an asynchronous operation to fetch events for this catalog
         new Thread(()->{
-            // TODO: filter catalog
-//            List<EventBrief> briefs = Repository.getInstance().loadMoreEventBriefs(catalog, mList.size(),20);
-//            mList.addAll(briefs);
+            Log.i("HomeTabViewModel", "loadEventsAsync");
+
+            // when first launch, load previous data
+            if(mList == null || mList.size()==0){
+                mList = Repository.getInstance().loadLocalCache(catalog, 20);
+                events.postValue(mList);
+            }
+
 
             List<EventBrief> briefs = Repository.getInstance().refresh(catalog,20);
-            mList = briefs;
-            events.postValue(mList);
+            if(briefs.size()>0) {
+                mList = briefs;
+                events.postValue(mList);
+            }
         }).start();
     }
 
@@ -69,7 +78,7 @@ public class HomeTabViewModel extends ViewModel {
     }
 
     public void itemClicked( int pos){
-
+        // TODO: a litter detour, maybe simpler?
         events.getValue().get(pos).setAlreadyRead(true);
     }
 }

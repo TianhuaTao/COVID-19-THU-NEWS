@@ -16,22 +16,23 @@ import java.util.List;
 public class HomePagerAdapter extends FragmentStatePagerAdapter {
     HomeViewModel viewModel;
     List<Fragment> tabsFragment;
-    public HomePagerAdapter(FragmentManager fm,HomeViewModel viewModel) {
+
+    public HomePagerAdapter(FragmentManager fm, HomeViewModel viewModel) {
         super(fm);
-        this.viewModel =viewModel;
-        tabsFragment = new ArrayList<>(Collections.nCopies(this.viewModel.getCatalogCount(),null));
+        this.viewModel = viewModel;
+        tabsFragment = new ArrayList<>(Collections.nCopies(this.viewModel.getCatalogCount(), null));
     }
 
     @NotNull
     @Override
     public Fragment getItem(int i) {
-        if(tabsFragment.get(i)==null){
+        if (tabsFragment.get(i) == null) {
             HomeTabFragment fragment = new HomeTabFragment();
             Bundle args = new Bundle();
-            args.putInt("position",i);
+            args.putInt("position", i);
             args.putString("catalog", viewModel.getCatalogName(i));
             fragment.setArguments(args);
-            tabsFragment.set(i,fragment);
+            tabsFragment.set(i, fragment);
         }
 
         return tabsFragment.get(i);

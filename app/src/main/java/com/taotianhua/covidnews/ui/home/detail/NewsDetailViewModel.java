@@ -4,12 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.taotianhua.covidnews.network.Api;
+
 import com.taotianhua.covidnews.model.Event;
 import com.taotianhua.covidnews.repository.Repository;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class NewsDetailViewModel extends ViewModel {
 
@@ -27,15 +25,8 @@ public class NewsDetailViewModel extends ViewModel {
     private void loadDetailAsync(String id){
         // Do an asynchronous operation to fetch event.
         new Thread(()->{
-            String listJson = Repository.getInstance().getNewsDetailJson(id);
-            try {
-                JSONObject jObject = new JSONObject(listJson);
-                JSONObject data= jObject.getJSONObject("data");
-                Event e = Event.fromJson(data);
-                mEvent.postValue(e);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Event event =  Repository.getInstance().getNewsDetail(id);  // time consuming
+            mEvent.postValue(event);
         }).start();
     }
 }

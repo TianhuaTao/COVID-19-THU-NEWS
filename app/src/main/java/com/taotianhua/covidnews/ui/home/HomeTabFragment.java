@@ -38,8 +38,6 @@ public class HomeTabFragment extends Fragment {
     String catalog;
     private boolean loading = false;
     public HomeTabFragment() {
-
-
     }
 
 
@@ -55,8 +53,6 @@ public class HomeTabFragment extends Fragment {
         }
 
         mAdapter = new NewsAdapter(new ArrayList<>());
-
-
 
     }
 
