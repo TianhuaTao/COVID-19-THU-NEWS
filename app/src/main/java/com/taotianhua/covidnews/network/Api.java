@@ -74,5 +74,9 @@ public class Api {
 
         return bitmap;
     }
+    
+    public static   String  getEpidemicDataJson(){
+        return getJson(UrlConst.genUrlEpidemic());
+    }
   }
 

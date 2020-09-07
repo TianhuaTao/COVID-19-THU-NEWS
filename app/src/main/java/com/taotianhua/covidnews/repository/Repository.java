@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.taotianhua.covidnews.model.Entity;
+import com.taotianhua.covidnews.model.EpidemicData;
 import com.taotianhua.covidnews.model.Event;
 import com.taotianhua.covidnews.model.EventBrief;
 import com.taotianhua.covidnews.network.Api;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -277,6 +279,45 @@ public class Repository {
         //TODO: add local cache
         return Api.getBitmapWithUrl(url);
     }
+    /* ******************************Epidemic Data interface *********************************** */
+
+    /**
+     * 根据region读取json中对应地区的数据并构建Epidemic Data。需要联网。
+     * @param region
+     * @return
+     */
+    public EpidemicData getEpidemicData(String region){
+        Log.i("Repository", "getEpidemicData");
+        String epidemicDataJsonStr = Api.getEpidemicDataJson();
+        if(epidemicDataJsonStr == null) return null;
+
+        EpidemicData epidemicData = new EpidemicData();
+        epidemicData.setRegion(region);
+        try{
+            JSONObject regionData = new JSONObject(epidemicDataJsonStr).getJSONObject(region);
+            epidemicData.setBegin(regionData.getString("begin"));
+            JSONArray dataEntry = regionData.getJSONArray("data");
+            List<Integer> confirmedList = new ArrayList<>();
+            List<Integer> curedList = new ArrayList<>();
+            List<Integer> deadList = new ArrayList<>();
+            for(int i = 0 ; i<dataEntry.length(); ++i){
+                JSONArray entry = dataEntry.getJSONArray(i);
+                confirmedList.add(entry.getInt(0));
+                curedList.add(entry.getInt(2));
+                deadList.add(entry.getInt(3));
+            }
+            epidemicData.setConfirmed(confirmedList);
+            epidemicData.setCured(curedList);
+            epidemicData.setDead(deadList);
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+        return  epidemicData;
+    }
+
+    /* ***************************************************************************************** */
 
     /* ******************************* Old interface ******************************************* */
 

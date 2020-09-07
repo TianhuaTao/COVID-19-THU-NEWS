@@ -21,5 +21,8 @@ public class UrlConst {
         return MessageFormat.format(URL_ENTITY_QUERY_TEMPLATE,entity);
     }
 
+    public static String genUrlEpidemic(){
+        return URL_EPIDEMIC;
+    }
 
 }
