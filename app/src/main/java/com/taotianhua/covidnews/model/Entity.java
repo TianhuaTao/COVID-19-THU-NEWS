@@ -1,21 +1,32 @@
 package com.taotianhua.covidnews.model;
 
+import android.graphics.Bitmap;
+import android.os.Parcelable;
+
+import com.taotianhua.covidnews.repository.Repository;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Entity {
+public class Entity implements Serializable {
 
-    public static class AbstractInfo{
+    public static class AbstractInfo implements Serializable{
         private String enwiki;
         private String baidu;
         private String zhwiki;
+
+        public COVID getCovid() {
+            return covid;
+        }
+
         COVID covid;
         public static AbstractInfo fromJson(JSONObject jsonObject){
             AbstractInfo abstractInfo = new AbstractInfo();
@@ -30,10 +41,33 @@ public class Entity {
 
             return abstractInfo;
         }
+
+        public String getDescription(){
+            if(!zhwiki.isEmpty())return zhwiki;
+            if(!enwiki.isEmpty())return enwiki;
+            if(!baidu.isEmpty())return baidu;
+            return  "";
+        }
     }
 
-    public static class COVID{
-        public static class  Entity_Relation{
+    public static class COVID  implements Serializable{
+        public static class  Entity_Relation  implements Serializable{
+            public String getType() {
+                return type;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public String getLabel() {
+                return label;
+            }
+
+            public Boolean getForward() {
+                return forward;
+            }
+
             String type;
             String url;
             String label;
@@ -85,6 +119,39 @@ public class Entity {
         }
 
 
+    }
+
+    public double getHot() {
+        return hot;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+
+//    private Bitmap image;     /* make it serializable */
+
+//    /* set by Repository */
+//    public void setImage(Bitmap value){
+//        image = value;
+//    }
+
+    /* Slow */
+    public Bitmap fetchImage(){
+        return Repository.getInstance().getBitmapWithUrl(this.img_url);
+    }
+
+    public AbstractInfo getAbstractInfo() {
+        return abstractInfo;
     }
 
     private double hot;
