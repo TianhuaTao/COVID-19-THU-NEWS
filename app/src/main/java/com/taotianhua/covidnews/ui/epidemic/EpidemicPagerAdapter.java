@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 public class EpidemicPagerAdapter extends FragmentStatePagerAdapter {
 
     static final String[] pageTitles= {"Graph","Entity"};
-    EpidemicViewModel viewModel;
+    GraphViewModel viewModel;
 
     EntityQueryFragment entityQueryFragment;
     GraphFragment graphFragment;
 
-    public EpidemicPagerAdapter(FragmentManager fm, EpidemicViewModel viewModel) {
+    public EpidemicPagerAdapter(FragmentManager fm, GraphViewModel viewModel) {
         super(fm);
         this.viewModel = viewModel;
     }
