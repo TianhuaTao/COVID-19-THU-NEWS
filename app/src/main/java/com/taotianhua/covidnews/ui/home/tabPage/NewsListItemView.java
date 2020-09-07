@@ -60,8 +60,8 @@ public class NewsListItemView extends CardView {
 
     private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.NewsListItemView, defStyle, 0);
+//        final TypedArray a = getContext().obtainStyledAttributes(
+//                attrs, R.styleable.NewsListItemView, defStyle, 0);
 
 
 
@@ -71,7 +71,7 @@ public class NewsListItemView extends CardView {
 //            mExampleDrawable.setCallback(this);
 //        }
 
-        a.recycle();
+//        a.recycle();
 
         // Set up a default TextPaint object
 //        mTextPaint = new TextPaint();
@@ -79,7 +79,7 @@ public class NewsListItemView extends CardView {
 //        mTextPaint.setTextAlign(Paint.Align.LEFT);
 
         // Update TextPaint and text measurements from attributes
-        invalidateTextPaintAndMeasurements();
+//        invalidateTextPaintAndMeasurements();
     }
 
     private void invalidateTextPaintAndMeasurements() {

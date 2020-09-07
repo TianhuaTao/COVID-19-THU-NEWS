@@ -27,6 +27,10 @@ public class Entity implements Serializable {
             return covid;
         }
 
+        public String getEnwiki() {
+            return enwiki;
+        }
+
         COVID covid;
         public static AbstractInfo fromJson(JSONObject jsonObject){
             AbstractInfo abstractInfo = new AbstractInfo();
@@ -89,6 +93,15 @@ public class Entity implements Serializable {
         }
 
         Map<String,String > properties;
+
+        public Map<String, String> getProperties() {
+            return properties;
+        }
+
+        public List<Entity_Relation> getRelations() {
+            return relations;
+        }
+
         List<Entity_Relation> relations;
 
         public static COVID fromJson(JSONObject jsonObject){
@@ -96,9 +109,10 @@ public class Entity implements Serializable {
             try{
                 // properties
                 covid.properties = new LinkedHashMap<>();
-                for (Iterator<String> it = jsonObject.getJSONObject("properties").keys(); it.hasNext(); ) {
+                JSONObject propertiesObj = jsonObject.getJSONObject("properties");
+                for (Iterator<String> it =propertiesObj. keys(); it.hasNext(); ) {
                     String key = it.next();
-                    covid.properties.put(key, jsonObject.getString(key));
+                    covid.properties.put(key, propertiesObj.getString(key));
                 }
 
                 // relations

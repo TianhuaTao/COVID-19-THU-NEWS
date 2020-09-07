@@ -22,7 +22,7 @@ import com.taotianhua.covidnews.ui.epidemic.entity.search.SearchEntityActivity;
 public class EntityQueryFragment extends Fragment {
 
     private EntityQueryViewModel mViewModel;
-
+    private View rootView;
     public static EntityQueryFragment newInstance() {
         return new EntityQueryFragment();
     }
@@ -40,14 +40,16 @@ public class EntityQueryFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
-
+    SearchView searchView;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         SearchManager searchManager = (SearchManager) getActivity(). getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = view.findViewById(R.id.entityQuerySearchView) ;
+        searchView= view.findViewById(R.id.entityQuerySearchView) ;
         // Assumes current activity is the searchable activity
         searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this.getActivity(), SearchEntityActivity.class)));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
+        rootView = getActivity(). findViewById(R.id.entity_query_scroll_view);
     }
+
+
 }

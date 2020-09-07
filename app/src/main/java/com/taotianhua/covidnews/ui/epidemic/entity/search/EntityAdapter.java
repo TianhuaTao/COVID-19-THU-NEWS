@@ -63,6 +63,7 @@ public class EntityAdapter extends RecyclerView.Adapter<EntityAdapter.EntityHold
 
     }
     public void setDataSet(List<Entity> newList) {
+        // TODO: give notice if the list empty, not just a blank page
         mDataset.clear();
         mDataset.addAll(newList);
         notifyDataSetChanged();

@@ -1,0 +1,53 @@
+<com.taotianhua.covidnews.ui.epidemic.entity.search.detail.PropertyView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+
+        >
+
+
+        <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+
+            android:layout_margin="4dp"
+            android:background="#BBBBBB"
+
+            >
+
+            <TextView
+                android:id="@+id/property_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:maxWidth="300dp"
+                android:text="@string/sampel_label" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/property_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/card_view_wrapper"
+            android:layout_margin="8dp"
+            android:text="@string/sampel_label"
+            android:textColor="@color/colorBlack"
+
+            />
+    </RelativeLayout>
+
+</com.taotianhua.covidnews.ui.epidemic.entity.search.detail.PropertyView>
+
+
