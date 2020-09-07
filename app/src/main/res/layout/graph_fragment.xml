@@ -27,6 +27,12 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:entries="@array/graph_spinner_array"/>
+        <Button
+            android:id="@+id/query_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Query"
+            android:background="#D5D5D5"/>
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.LineChart

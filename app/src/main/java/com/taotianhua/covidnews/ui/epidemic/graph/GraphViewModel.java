@@ -36,7 +36,15 @@ public class GraphViewModel extends ViewModel {
         if(graphData == null){
             graphData = new MutableLiveData<>();
         }
+        if(county.length() == 0){
+            if(province.length() == 0) return getEpidemicData(country);
+            else return getEpidemicData(country, province);
+        }
+        if(province.length() == 0){
+            Log.d("Debug", "province为空但county不为空是不能出现的");
+        }
         String region = country+"|"+province+"|"+county;
+        Log.d("Debug",region);
         loadRegionDataAsync(region);
         return graphData;
     }
@@ -45,7 +53,11 @@ public class GraphViewModel extends ViewModel {
         if(graphData == null){
             graphData = new MutableLiveData<>();
         }
+        if(province.length() == 0) { //为""
+            return getEpidemicData(country);
+        }
         String region = country+"|"+province;
+        Log.d("Debug",region);
         loadRegionDataAsync(region);
         return graphData;
     }
@@ -56,6 +68,7 @@ public class GraphViewModel extends ViewModel {
         }
         String region = country;
         loadRegionDataAsync(region);
+        Log.d("Debug",region);
         return graphData;
     }
 

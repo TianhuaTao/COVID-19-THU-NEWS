@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +40,8 @@ public class GraphFragment extends Fragment {
 
     private LineChart lineChart;
     private Spinner spinner_country, spinner_province, spinner_county;
+    private Button mBtnQuery;
     private com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel graphViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         graphViewModel =
@@ -53,10 +55,12 @@ public class GraphFragment extends Fragment {
         spinner_county = (Spinner) root.findViewById(R.id.county_spinner);
         setSpinners();
 
+        mBtnQuery = (Button)root.findViewById(R.id.query_button);
+        setBtnOnClickedListener();
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
         setLineChartBasicFormat(lineChart);
         graphViewModel.getEpidemicData("China").observe(getViewLifecycleOwner(), epidemicData -> {
-            Log.d("MyApp","StartSetting");
+            Log.d("Debug","开始重绘");
             if(epidemicData == null){
                 //要保证查询的字段存在才行
                 Log.e("NullException", "Json key error");
@@ -106,7 +110,7 @@ public class GraphFragment extends Fragment {
 
             lineChart.animateX(5000, Easing.EasingOption.EaseInOutSine);
             lineChart.setData(mChartData);
-            Log.d("MyApp","here");
+            Log.d("Debug","结束重绘");
         });
 
         return root;
@@ -127,11 +131,12 @@ public class GraphFragment extends Fragment {
             @Override
             public String getFormattedValue(float value, YAxis yAxis) {
                 int v = (int) value;
+                DecimalFormat format = new DecimalFormat("0.00");
                 if(v >= 1000000) {
-                    return (value/1000000) + "百万人";
+                    return format.format(value/1000000) + "百万人";
                 }
                 else if(v >= 10000){
-                    return  (value/10000) + "万人";
+                    return  format.format(value/10000) + "万人";
                 }
                 return (int)value + "人";
             }
@@ -139,24 +144,51 @@ public class GraphFragment extends Fragment {
     }
 
     /**
-     * 设置spinner选框的
+     * 设置spinner选框的数据
      */
 
     private void setSpinners(){
-        final String []spinnerItems = {"China", "United States of America", "Russia"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,spinnerItems);
+//        final String []spinnerItems = {"China", "United States of America", "Russia"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,RegionQuery.getCountryList());
         spinner_country.setAdapter(spinnerAdapter);
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = spinner_country.getSelectedItem().toString();
-                Log.i("Clicked", selected);
-                graphViewModel.getEpidemicData(selected);
+                //将province设置成所选城市对应的省份列表（若无则为空）
+                final String []provinceItem = RegionQuery.getProvinceList(selected);
+                ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,provinceItem);
+                spinner_province.setAdapter(provinceAdapter);
             }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
+        spinner_province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = spinner_province.getSelectedItem().toString();
+                //将county的item设置
+                final String []countyItem = RegionQuery.getCountyList(selected);
+                ArrayAdapter<String> countyAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, countyItem);
+                spinner_county.setAdapter(countyAdapter);
+//                graphViewModel.getEpidemicData(spinner_country.getSelectedItem().toString(), selected);
+            }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+    }
+
+    private void setBtnOnClickedListener(){
+        mBtnQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graphViewModel.getEpidemicData(spinner_country.getSelectedItem().toString(),
+                        spinner_province.getSelectedItem().toString(),
+                        spinner_county.getSelectedItem().toString());
             }
         });
     }
