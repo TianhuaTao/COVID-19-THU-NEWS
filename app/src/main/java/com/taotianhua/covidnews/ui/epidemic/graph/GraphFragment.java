@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,6 +37,7 @@ import java.util.List;
 public class GraphFragment extends Fragment {
 
     private LineChart lineChart;
+    private Spinner spinner_country, spinner_province, spinner_county;
     private com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel graphViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -43,11 +48,19 @@ public class GraphFragment extends Fragment {
 
         graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
 
+        spinner_country = (Spinner) root.findViewById(R.id.country_spinner);
+        spinner_province = (Spinner) root.findViewById(R.id.province_spinner);
+        spinner_county = (Spinner) root.findViewById(R.id.county_spinner);
+        setSpinners();
+
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
         setLineChartBasicFormat(lineChart);
-
         graphViewModel.getEpidemicData("China").observe(getViewLifecycleOwner(), epidemicData -> {
             Log.d("MyApp","StartSetting");
+            if(epidemicData == null){
+                //要保证查询的字段存在才行
+                Log.e("NullException", "Json key error");
+            }
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 //
             String region = epidemicData.getRegion();
@@ -99,6 +112,11 @@ public class GraphFragment extends Fragment {
         return root;
     }
 
+    /**
+     * 设置Line Chart的基本格式
+     * @param lineChart
+     */
+
     private void setLineChartBasicFormat(LineChart lineChart){
         lineChart.setStateDescription("这是description");
         lineChart.setNoDataText("正在读取数据");
@@ -116,6 +134,29 @@ public class GraphFragment extends Fragment {
                     return  (value/10000) + "万人";
                 }
                 return (int)value + "人";
+            }
+        });
+    }
+
+    /**
+     * 设置spinner选框的
+     */
+
+    private void setSpinners(){
+        final String []spinnerItems = {"China", "United States of America", "Russia"};
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,spinnerItems);
+        spinner_country.setAdapter(spinnerAdapter);
+        spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = spinner_country.getSelectedItem().toString();
+                Log.i("Clicked", selected);
+                graphViewModel.getEpidemicData(selected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
     }
