@@ -1,7 +1,9 @@
 package com.taotianhua.covidnews.repository;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.taotianhua.covidnews.model.Entity;
 import com.taotianhua.covidnews.model.EpidemicData;
 import com.taotianhua.covidnews.model.Event;
 import com.taotianhua.covidnews.model.EventBrief;
@@ -240,6 +242,43 @@ public class Repository {
     }
 
 
+
+    public List<Entity> queryEntity(String query){
+        List<Entity> entityList = new ArrayList<>();
+        String json = Api.queryEntityJson(query);
+//        System.out.println(json);
+
+        if (json == null) {
+            return entityList;
+        }
+        try {
+            JSONObject jObject = new JSONObject(json);
+            JSONArray data = jObject.getJSONArray("data");
+
+            for (int i = 0; i < data.length(); i++) {
+                Entity entity = Entity.fromJson(data.getJSONObject(i));
+//                // Set image
+//                if(entity!=null){
+//                    String imageUrl = entity.getImg_url();
+//                    entity.setImage(this.getBitmapWithUrl(imageUrl));
+//                }
+                entityList.add(entity);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return  entityList;
+    }
+
+    public Bitmap getBitmapWithUrl(String url){
+        if(url==null||
+            url.equals("null")  /* I hate the json hack */
+        )return null;
+        //TODO: add local cache
+        return Api.getBitmapWithUrl(url);
+    }
     /* ******************************Epidemic Data interface *********************************** */
 
     /**

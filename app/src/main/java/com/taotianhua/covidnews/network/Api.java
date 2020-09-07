@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.network;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.JsonReader;
 import android.util.Log;
 import android.util.Pair;
@@ -10,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
@@ -53,6 +56,25 @@ public class Api {
         return getJson(  UrlConst.URL_EVENTS);
     }
 
+    public static   String  queryEntityJson(String query)  {
+        Log.i("Api","queryEntityJson");
+
+        return getJson(  UrlConst.genUrlEntityQuery(query));
+    }
+
+    public static Bitmap getBitmapWithUrl(String url){
+        final Request request = new Request.Builder().url(url).build();
+        Bitmap bitmap = null;
+        try (Response response = client.newCall(request).execute()) {
+            InputStream inputStream = response.body().byteStream();
+            bitmap= BitmapFactory.decodeStream(inputStream);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+    
     public static   String  getEpidemicDataJson(){
         return getJson(UrlConst.genUrlEpidemic());
     }

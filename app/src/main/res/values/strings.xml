@@ -22,4 +22,10 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="covid_19_knowledge_graph">Integrate multiple open knowledge graphs to help world fight against COVID-19</string>
     <string name="covid_19_knowledge_graph_title">COVID-19 Knowledge Graph</string>
+    <string name="search_hint">Search Entity</string>
+    <string name="sample_description">Sample description</string>
+    <string name="sampel_label">Sampel Label</string>
+    <string name="relations">Relations</string>
+    <string name="properties">Properties</string>
+    <string name="entity">Entity</string>
 </resources>
