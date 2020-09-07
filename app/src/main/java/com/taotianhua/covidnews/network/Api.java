@@ -52,5 +52,9 @@ public class Api {
 
         return getJson(  UrlConst.URL_EVENTS);
     }
+
+    public static   String  getEpidemicDataJson(){
+        return getJson(UrlConst.genUrlEpidemic());
+    }
   }
 

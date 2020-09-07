@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taotianhua.covidnews.R;
+import com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel;
 
 public class EpidemicFragment extends Fragment {
     ViewPager viewPager;

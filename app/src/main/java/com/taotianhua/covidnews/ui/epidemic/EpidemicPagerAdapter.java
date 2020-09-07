@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.taotianhua.covidnews.ui.epidemic.entity.EntityQueryFragment;
 import com.taotianhua.covidnews.ui.epidemic.graph.GraphFragment;
+import com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel;
 
 import org.jetbrains.annotations.NotNull;
 

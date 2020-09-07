@@ -38,7 +38,7 @@ public class GraphFragment extends Fragment {
         graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
 
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
-        Log.d("MyApp","ccc");
+        lineChart.setStateDescription("这是description");
         graphViewModel.getEpidemicData("China").observe(getViewLifecycleOwner(), epidemicData -> {
             Log.d("MyApp","StartSetting");
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
