@@ -13,11 +13,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel;
 
@@ -38,12 +44,14 @@ public class GraphFragment extends Fragment {
         graphViewModel = new ViewModelProvider(this).get(GraphViewModel.class);
 
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
-        lineChart.setStateDescription("这是description");
+        setLineChartBasicFormat(lineChart);
+
         graphViewModel.getEpidemicData("China").observe(getViewLifecycleOwner(), epidemicData -> {
             Log.d("MyApp","StartSetting");
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 //
             String region = epidemicData.getRegion();
+            String begin = epidemicData.getBegin();
             List<Integer> confirmed = epidemicData.getConfirmed();
             List<Integer> cured = epidemicData.getCured();
             List<Integer> dead = epidemicData.getDead();
@@ -79,15 +87,36 @@ public class GraphFragment extends Fragment {
             dataSets.add(curedData);
             dataSets.add(deadData);
 
-
             LineData mChartData = new LineData(labelStr, dataSets);
 
-            lineChart.setData(mChartData);
+            lineChart.setDescription("开始统计日期： "+begin);
 
+            lineChart.animateX(5000, Easing.EasingOption.EaseInOutSine);
+            lineChart.setData(mChartData);
             Log.d("MyApp","here");
-            lineChart.animateY(1000);
         });
 
         return root;
+    }
+
+    private void setLineChartBasicFormat(LineChart lineChart){
+        lineChart.setStateDescription("这是description");
+        lineChart.setNoDataText("正在读取数据");
+        YAxis yAxis = lineChart.getAxisLeft();
+        yAxis.setDrawZeroLine(true);
+        yAxis.setZeroLineColor(0xFF9900);
+        yAxis.setValueFormatter(new YAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, YAxis yAxis) {
+                int v = (int) value;
+                if(v >= 1000000) {
+                    return (value/1000000) + "百万人";
+                }
+                else if(v >= 10000){
+                    return  (value/10000) + "万人";
+                }
+                return (int)value + "人";
+            }
+        });
     }
 }
