@@ -122,7 +122,6 @@ public class GraphFragment extends Fragment {
      */
 
     private void setLineChartBasicFormat(LineChart lineChart){
-        lineChart.setStateDescription("这是description");
         lineChart.setNoDataText("正在读取数据");
         YAxis yAxis = lineChart.getAxisLeft();
         yAxis.setDrawZeroLine(true);
