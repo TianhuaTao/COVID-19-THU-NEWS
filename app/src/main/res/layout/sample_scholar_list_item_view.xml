@@ -20,8 +20,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/entity_demo_logo"
-            app:srcCompat="@drawable/icon_user" />
+            android:contentDescription="Photo"
+            />
 
         <TextView
             android:id="@+id/scholar_name_view"

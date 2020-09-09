@@ -12,9 +12,7 @@ import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.model.Scholar;
 import com.taotianhua.covidnews.repository.Repository;
 
-/**
- * TODO: document your custom view class.
- */
+
 public class ScholarListItemView extends CardView {
 
     Scholar scholar;
@@ -43,6 +41,8 @@ public class ScholarListItemView extends CardView {
         this.scholar = scholar;
         ImageView imageView;
         TextView textView;
+
+        // set photo
         imageView = findViewById(R.id.scholar_photo);
         new Thread(()->{
             Bitmap bm = Repository.getInstance().getBitmapWithUrl(scholar.getAvatar_url());
@@ -51,7 +51,7 @@ public class ScholarListItemView extends CardView {
             });
         }).start();
 
-        // set photo
+
         textView = findViewById(R.id.scholar_name_view);
         textView.setText(scholar.getCompleteName());
 
