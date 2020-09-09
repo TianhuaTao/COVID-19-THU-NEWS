@@ -59,7 +59,7 @@ public class GraphFragment extends Fragment {
         setBtnOnClickedListener();
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
         setLineChartBasicFormat(lineChart);
-        graphViewModel.getEpidemicData("China").observe(getViewLifecycleOwner(), epidemicData -> {
+        graphViewModel.getEpidemicData("World").observe(getViewLifecycleOwner(), epidemicData -> {
             Log.d("Debug","开始重绘");
             if(epidemicData == null){
                 //要保证查询的字段存在才行
@@ -150,6 +150,7 @@ public class GraphFragment extends Fragment {
 //        final String []spinnerItems = {"China", "United States of America", "Russia"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,RegionQuery.getCountryList());
         spinner_country.setAdapter(spinnerAdapter);
+
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -163,6 +164,8 @@ public class GraphFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        int postion = spinnerAdapter.getPosition("World"); //
+        spinner_country.setSelection(postion,true);
 
         spinner_province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

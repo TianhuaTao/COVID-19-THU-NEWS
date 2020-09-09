@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,12 +44,15 @@ public class Event  implements Serializable {
         return urls;
     }
 
+    public ArrayList<String> getLabels(){return labels;}
+
     private String time;
     private String content;
     private String source;
     private String title;
     private String type;
     private ArrayList<String> urls = new ArrayList<>();
+    private ArrayList<String> labels = new ArrayList<>();
 
     public static Event fromJson(JSONObject jsonObject)  {
         Event event = new Event();
@@ -61,6 +66,13 @@ public class Event  implements Serializable {
             JSONArray urlArray = jsonObject.getJSONArray("urls");
             for (int i = 0; i < urlArray.length(); i++) {
                 event.urls.add(urlArray.getString(i));
+            }
+            JSONArray labelsArray = jsonObject.getJSONArray("entities");
+            for(int i = 0; i < labelsArray.length();++i){
+                event.labels.add(labelsArray.getJSONObject(i).getString("label"));
+            }
+            if(event.type.equals("event")){
+                Log.i("MyApp", "contain =" + jsonObject.has("related_events"));
             }
         }catch (JSONException e){
             event = null;
