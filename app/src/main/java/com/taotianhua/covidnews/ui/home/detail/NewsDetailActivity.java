@@ -44,8 +44,8 @@ public class NewsDetailActivity extends AppCompatActivity {
             } else {
                 viewContent.setText(content);
             }
-            String sourceLine = event.getSource() == null ? "" : "来源: " + event.getSource();
-            String timeLine = event.getTime() == null ? "" : "时间: " + event.getTime();
+            String sourceLine = "来源: "+((event.getSource() == null|| event.getSource().isEmpty() )?  "网络": event.getSource());
+            String timeLine =  "时间: " +((event.getTime() == null || event.getTime().isEmpty())? "未知" : event.getTime());
 
             viewInfo.setText(sourceLine + "\n" + timeLine);
             HistoryManager.getInstance().addHistory(event.getId());

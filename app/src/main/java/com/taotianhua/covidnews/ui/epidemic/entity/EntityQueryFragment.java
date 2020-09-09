@@ -3,6 +3,7 @@ package com.taotianhua.covidnews.ui.epidemic.entity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
@@ -46,7 +47,8 @@ public class EntityQueryFragment extends Fragment {
         SearchManager searchManager = (SearchManager) getActivity(). getSystemService(Context.SEARCH_SERVICE);
         searchView= view.findViewById(R.id.entityQuerySearchView) ;
         // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(new ComponentName(this.getActivity(), SearchEntityActivity.class)));
+        SearchableInfo searchableInfo = searchManager.getSearchableInfo(new ComponentName(this.getActivity(), SearchEntityActivity.class));
+        searchView.setSearchableInfo(searchableInfo);
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         rootView = getActivity(). findViewById(R.id.entity_query_scroll_view);
     }
