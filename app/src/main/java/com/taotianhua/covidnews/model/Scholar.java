@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
+// TODO: use more fields
 public class Scholar implements Serializable {
     String avatar_url;
     String id;

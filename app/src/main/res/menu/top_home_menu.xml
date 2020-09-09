@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/settings_menu_item"
-        android:title="选择分类" />
-    <item android:id="@+id/history_menu_item"
-        android:title="历史记录" />
-    <item android:id="@+id/home_search_view"
-        android:title="Search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/settings_menu_item"
+        android:title="@string/choose_catalog" />
+    <item
+        android:id="@+id/history_menu_item"
+        android:title="@string/history" />
+    <item
+        android:id="@+id/home_search_view"
+        android:icon="@android:drawable/ic_menu_search"
+        android:iconTint="@color/colorWhite"
+        android:title="@string/search"
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom" />
 </menu>

@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".ui.home.CatalogDialogFragment"
     android:layout_margin="20dp"
-android:padding="20dp"
-    >
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".ui.home.CatalogDialogFragment">
 
 
     <ToggleButton
@@ -19,23 +18,26 @@ android:padding="20dp"
         android:textOn="News"
 
         />
+
     <ToggleButton
         android:id="@+id/paperButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textOff="Paper"
         android:textOn="Paper" />
+
     <ToggleButton
         android:id="@+id/eventButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textOff="Event"
         android:textOn="Event" />
+
     <ToggleButton
         android:id="@+id/pointsButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:textOff="Points"
-        android:textOn="Points"  />
+        android:textOn="Points" />
 
 </LinearLayout>

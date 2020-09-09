@@ -15,19 +15,19 @@ import java.util.Set;
 
 
 /**
- *  历史记录管理类
- *  单例模式
- *  只保存用户查看过的新闻的 id，没有具体内容
- *  如果需要具体的新闻，应该通过 id 在 Repository 中获取
+ * 历史记录管理类
+ * 单例模式
+ * 只保存用户查看过的新闻的 id，没有具体内容
+ * 如果需要具体的新闻，应该通过 id 在 Repository 中获取
  */
 public class HistoryManager {
 
-    HistoryManager(){
+    HistoryManager() {
         historyCache = new HashSet<>(getHistory());
     }
 
     /* 由于需要频繁查找一个 id 是否在历史中，所以用一个 set 来加速，构造的时候读入文件中的内容 */
-    private Set<String> historyCache ;
+    private Set<String> historyCache;
 
     /* 单例 */
     private static HistoryManager instance;
@@ -45,6 +45,7 @@ public class HistoryManager {
 
     /**
      * 存储新闻的 id
+     *
      * @param id
      */
     public void addHistory(String id) {
@@ -76,6 +77,7 @@ public class HistoryManager {
 
     /**
      * 读取所有的历史记录
+     *
      * @return 历史新闻的 id，最新的记录在最前
      */
     public List<String> getHistory() {
@@ -83,7 +85,7 @@ public class HistoryManager {
         String content = LocalStorage.load(prefix, filename);
 
         // splitting of empty string gives a list of size one, we want empty list
-        if(content==null||content.isEmpty()){
+        if (content == null || content.isEmpty()) {
             return new ArrayList<>();
         }
 
@@ -98,10 +100,11 @@ public class HistoryManager {
 
     /**
      * id 是否在记录中
+     *
      * @param id
      * @return
      */
-    public boolean inHistory(String id){
-        return  historyCache.contains(id);
+    public boolean inHistory(String id) {
+        return historyCache.contains(id);
     }
 }

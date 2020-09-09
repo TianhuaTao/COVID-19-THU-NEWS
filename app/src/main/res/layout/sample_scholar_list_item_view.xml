@@ -50,11 +50,10 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="2dp"
             android:layout_toEndOf="@id/scholar_photo"
+            android:ellipsize="end"
             android:lines="1"
             android:text="@string/sampel_label"
-            android:textSize="16sp"
-
-            />
+            android:textSize="16sp" />
 
         <TextView
 
@@ -69,26 +68,26 @@
 
             android:layout_toEndOf="@id/scholar_photo"
             android:lines="1"
-android:visibility="invisible"
-
             android:text="追忆学者"
+
             android:textColor="@color/design_default_color_error"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/scholar_affiliation_view"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/scholar_position_view"
 
             android:layout_alignParentRight="true"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="2dp"
+            android:layout_marginVertical="4dp"
             android:layout_toRightOf="@id/scholar_photo"
-            android:lines="1"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/sampel_label"
             android:textSize="16sp"
-
 
             />
 

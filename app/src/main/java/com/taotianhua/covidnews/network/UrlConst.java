@@ -11,22 +11,21 @@ public class UrlConst {
     static final String URL_SCHOLARS = "https://innovaapi.aminer.cn/predictor/api/v1/valhalla/highlight/get_ncov_expers_list?v=2";
 
 
-    public static String genUrlListPagination(String type, int page, int size){
-        return MessageFormat.format(URL_LIST_TEMPLATE, type, page,size);
-    }
-    public static String genUrlEventDetail(String id){
-        return MessageFormat.format(URL_EVENT_DETAIL_TEMPLATE,id);
-    }
-    public static String genUrlEntityQuery(String entity){
-        return MessageFormat.format(URL_ENTITY_QUERY_TEMPLATE,entity);
+    public static String genUrlListPagination(String type, int page, int size) {
+        return MessageFormat.format(URL_LIST_TEMPLATE, type, page, size);
     }
 
-    public static String genUrlEpidemic(){
+    public static String genUrlEventDetail(String id) {
+        return MessageFormat.format(URL_EVENT_DETAIL_TEMPLATE, id);
+    }
+
+    public static String genUrlEntityQuery(String entity) {
+        return MessageFormat.format(URL_ENTITY_QUERY_TEMPLATE, entity);
+    }
+
+    public static String genUrlEpidemic() {
         return URL_EPIDEMIC;
     }
 
-//    public static String genUrlScholars(){
-//        return URL_SCHOLARS;
-//    }
 
 }

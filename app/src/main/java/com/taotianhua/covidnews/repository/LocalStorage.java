@@ -49,14 +49,14 @@ public class LocalStorage {
     public static String load(String prefix, String name) {
         File directory = COVIDNewsApplication.getAppContext().getFilesDir();
         File subDir = new File(directory, prefix);
-        if(subDir.exists()&&!subDir.isDirectory() ){// it was once a file not dir
-            if(!subDir.delete()){
-                Log.e("LocalStorage","cannot delete");
+        if (subDir.exists() && !subDir.isDirectory()) {// it was once a file not dir
+            if (!subDir.delete()) {
+                Log.e("LocalStorage", "cannot delete");
             }
         }
         if (!subDir.exists()) {
-            if(!subDir.mkdir()){
-                Log.e("LocalStorage","cannot make dir");
+            if (!subDir.mkdir()) {
+                Log.e("LocalStorage", "cannot make dir");
             }
         }
         System.out.println(subDir.exists());
@@ -64,7 +64,7 @@ public class LocalStorage {
 
         File file = new File(subDir, name);
 
-        if(!file.exists())  return "";
+        if (!file.exists()) return "";
 
         String content;
 

@@ -74,7 +74,7 @@ public class ScholarDetailActivity extends AppCompatActivity {
         textView = findViewById(R.id.index_p_text);
         textView.setText(Integer.toString(mScholar.getIndices().getPubs()));
 
-        if(mScholar.isIs_passedaway()){
+        if (mScholar.isIs_passedaway()) {
             textView = findViewById(R.id.passAway_view);
             textView.setVisibility(View.VISIBLE);
         }
