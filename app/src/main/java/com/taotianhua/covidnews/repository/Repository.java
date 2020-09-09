@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * 但是提供一个统一的结构，使用 Repository 的用户不需要关心具体的数据从哪里来
  * Repository 提供的接口都是耗时的（阻塞），因此应该使用新的线程来调用
  * Repository 的接口不应该提供 JSON 和 字符串 形式的数据，解析的工作应该内部完成
- *
+ * <p>
  * 应该假设 Repository 的用户只需要知道 Event 和 EventBrief
  */
 public class Repository {
@@ -63,7 +63,6 @@ public class Repository {
     }
 
 
-
     /* 定义了所有的分类 */
     public List<String> getCatalog() {
         return catalog;
@@ -88,18 +87,18 @@ public class Repository {
     private Map<String, List<EventBrief>> catalogMap;
 
 
-
     /**
      * 根据 id 获取 Event
+     *
      * @param id
      * @return 出错时为 null
      */
-    public Event getNewsDetail(String id){
+    public Event getNewsDetail(String id) {
         Log.i("Repository", "getNewsDetail");
         Event event = null;
         String listJson;
         if (LocalStorage.exist("json", id)) {
-            listJson= LocalStorage.load("json", id);
+            listJson = LocalStorage.load("json", id);
             if (listJson == null || listJson.length() == 0) {
                 listJson = Api.getNewsDetailJson(id);
                 LocalStorage.store("json", id, listJson);
@@ -111,11 +110,11 @@ public class Repository {
                 LocalStorage.store("json", id, listJson);
         }
 
-        if(listJson==null) return null;
+        if (listJson == null) return null;
 
         try {
             JSONObject jObject = new JSONObject(listJson);
-            JSONObject data= jObject.getJSONObject("data");
+            JSONObject data = jObject.getJSONObject("data");
             event = Event.fromJson(data);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -125,7 +124,6 @@ public class Repository {
     }
 
     /**
-     *
      * @param catalog
      * @param count
      * @return
@@ -175,11 +173,13 @@ public class Repository {
      * 把 catalog 分类下的新闻刷新，可以获取新的服务器内容
      * （类似微博的拉到顶部更新）
      * 会把原本的 catalog 下的 list 中内容清空掉
+     *
      * @param catalog
-     * @param number    建议的获取的新event数量，实际忽略
-     * @return  新 event 列表
+     * @param number  建议的获取的新event数量，实际忽略
+     * @return 新 event 列表
      */
     public List<EventBrief> refresh(String catalog, int number) {
+        // TODO 改用新的带有 tflag 的服务器 API，只获取最新的新闻，并且不需要clear已有的新闻列表
         List<EventBrief> fetched = catalogMap.get(catalog);
         if (fetched == null) {
             Log.e("Repository", "Catalog " + catalog + " does not exist");
@@ -192,13 +192,13 @@ public class Repository {
 
     /**
      * 从第 start 条 EventBrief 之后再读取 number 条 catalog 类型的 EventBrief
-     *
+     * <p>
      * 注意到页面列表上显示的 event 数量总是小于 Repo 中存有的 event 数量，当页面上显示到了
      * 最后一条（第n条），就会从第 n+1 条开始请求 number 条内容
      * Repo 中缓存的内容或许可以拿出 number 条内容，也或许不能，如果不够就要从服务器获取
      *
      * @param catalog
-     * @param start 若页面上有n条，则start等于 n+1
+     * @param start   若页面上有n条，则start等于 n+1
      * @param number
      * @return
      */
@@ -242,8 +242,7 @@ public class Repository {
     }
 
 
-
-    public List<Entity> queryEntity(String query){
+    public List<Entity> queryEntity(String query) {
         List<Entity> entityList = new ArrayList<>();
         String json = Api.queryEntityJson(query);
 //        System.out.println(json);
@@ -269,13 +268,13 @@ public class Repository {
             e.printStackTrace();
         }
 
-        return  entityList;
+        return entityList;
     }
 
-    public Bitmap getBitmapWithUrl(String url){
-        if(url==null||
-            url.equals("null")  /* I hate the json hack */
-        )return null;
+    public Bitmap getBitmapWithUrl(String url) {
+        if (url == null ||
+                url.equals("null")  /* I hate the json hack */
+        ) return null;
         //TODO: add local cache
         return Api.getBitmapWithUrl(url);
     }
@@ -283,24 +282,25 @@ public class Repository {
 
     /**
      * 根据region读取json中对应地区的数据并构建Epidemic Data。需要联网。
+     *
      * @param region
      * @return
      */
-    public EpidemicData getEpidemicData(String region){
+    public EpidemicData getEpidemicData(String region) {
         Log.i("Repository", "getEpidemicData");
         String epidemicDataJsonStr = Api.getEpidemicDataJson();
-        if(epidemicDataJsonStr == null) return null;
+        if (epidemicDataJsonStr == null) return null;
 
         EpidemicData epidemicData = new EpidemicData();
         epidemicData.setRegion(region);
-        try{
+        try {
             JSONObject regionData = new JSONObject(epidemicDataJsonStr).getJSONObject(region);
             epidemicData.setBegin(regionData.getString("begin"));
             JSONArray dataEntry = regionData.getJSONArray("data");
             List<Integer> confirmedList = new ArrayList<>();
             List<Integer> curedList = new ArrayList<>();
             List<Integer> deadList = new ArrayList<>();
-            for(int i = 0 ; i<dataEntry.length(); ++i){
+            for (int i = 0; i < dataEntry.length(); ++i) {
                 JSONArray entry = dataEntry.getJSONArray(i);
                 confirmedList.add(entry.getInt(0));
                 curedList.add(entry.getInt(2));
@@ -309,12 +309,42 @@ public class Repository {
             epidemicData.setConfirmed(confirmedList);
             epidemicData.setCured(curedList);
             epidemicData.setDead(deadList);
-        }
-        catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
-        return  epidemicData;
+        return epidemicData;
+    }
+
+    public List<EventBrief> loadNewsSearchResult(String query, int limit) {
+        ArrayList<EventBrief> list = new ArrayList<>();
+        List<EventBrief> results = new ArrayList<>();
+
+        // TODO: 使用缓存，可设置缓存3分钟过期
+        String allEventsJson = Api.getAllEventsJson();
+
+        if (allEventsJson == null) {
+            return results;
+        }
+        try {
+            JSONObject jObject = new JSONObject(allEventsJson);
+            JSONArray data = jObject.getJSONArray("datas");
+
+            for (int i = data.length()-1; i >=0 ; i--) {
+                EventBrief brief = EventBrief.fromJson(data.getJSONObject(i));
+                list.add(brief);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("Repository", "Got all eventbriefs");
+       results = list.parallelStream()
+                .filter(eventBrief -> eventBrief.getTitle().toLowerCase().contains(query.toLowerCase()))
+               .limit(limit)
+               .collect(Collectors.toList());
+        Log.i("Repository", "filter done");
+        return results;
     }
 
     /* ***************************************************************************************** */

@@ -66,7 +66,8 @@ public class EventBrief implements Serializable {
         try {
             eventBrief.id = jsonObject.getString("_id");
             eventBrief.time = jsonObject.getString("time");
-            eventBrief.content = jsonObject.getString("content");
+            if(jsonObject.has("content"))
+                eventBrief.content = jsonObject.getString("content");
             eventBrief.title = jsonObject.getString("title");
             eventBrief.type = jsonObject.getString("type");
             eventBrief.alreadyRead = HistoryManager.getInstance().inHistory(eventBrief.id);

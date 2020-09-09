@@ -32,4 +32,9 @@ public class UserFragment extends Fragment {
 //        });
         return root;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+    }
 }

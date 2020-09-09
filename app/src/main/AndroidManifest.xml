@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.epidemic.entity.search.detail.EntityDetailActivity"></activity>
+
+        <activity android:name=".ui.epidemic.entity.search.detail.EntityDetailActivity" />
         <activity android:name=".ui.home.detail.NewsDetailActivity" />
         <activity
             android:name=".MainActivity"
@@ -23,6 +24,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.home.NewsSearchResultActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
         <activity android:name=".ui.epidemic.entity.search.SearchEntityActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -32,6 +41,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
+
     </application>
 
 </manifest>
