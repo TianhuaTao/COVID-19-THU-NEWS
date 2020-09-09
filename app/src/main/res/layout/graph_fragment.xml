@@ -13,20 +13,17 @@
             android:id="@+id/country_spinner"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:entries="@array/graph_spinner_array"/>
+            android:layout_height="wrap_content"/>
         <Spinner
             android:id="@+id/province_spinner"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:entries="@array/graph_spinner_array"/>
+            android:layout_height="wrap_content"/>
         <Spinner
             android:id="@+id/county_spinner"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:entries="@array/graph_spinner_array"/>
+            android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/query_button"
             android:layout_width="wrap_content"
