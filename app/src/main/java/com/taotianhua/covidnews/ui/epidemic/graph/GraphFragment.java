@@ -150,8 +150,6 @@ public class GraphFragment extends Fragment {
 //        final String []spinnerItems = {"China", "United States of America", "Russia"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,RegionQuery.getCountryList());
         spinner_country.setAdapter(spinnerAdapter);
-        int postion = 198;
-        spinner_country.setSelection(postion,true);
 
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -166,6 +164,8 @@ public class GraphFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        int postion = spinnerAdapter.getPosition("World"); //
+        spinner_country.setSelection(postion,true);
 
         spinner_province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
