@@ -8,7 +8,7 @@ public class UrlConst {
     static final String URL_EVENTS = "https://covid-dashboard.aminer.cn/api/dist/events.json";
     static final String URL_EVENT_DETAIL_TEMPLATE = "https://covid-dashboard-api.aminer.cn/event/{0}";
     static final String URL_ENTITY_QUERY_TEMPLATE = "https://innovaapi.aminer.cn/covid/api/v1/pneumonia/entityquery?entity={0}";
-    static final String URL_EXPERTS = "https://innovaapi.aminer.cn/predictor/api/v1/valhalla/highlight/get_ncov_expers_list?v=2";
+    static final String URL_SCHOLARS = "https://innovaapi.aminer.cn/predictor/api/v1/valhalla/highlight/get_ncov_expers_list?v=2";
 
 
     public static String genUrlListPagination(String type, int page, int size){
@@ -24,5 +24,9 @@ public class UrlConst {
     public static String genUrlEpidemic(){
         return URL_EPIDEMIC;
     }
+
+//    public static String genUrlScholars(){
+//        return URL_SCHOLARS;
+//    }
 
 }

@@ -19,10 +19,10 @@
         tools:layout="@layout/fragment_epidemic" />
 
     <fragment
-        android:id="@+id/navigation_experts"
-        android:name="com.taotianhua.covidnews.ui.experts.ExpertsFragment"
-        android:label="@string/title_experts"
-        tools:layout="@layout/fragment_user" />
+        android:id="@+id/navigation_scholars"
+        android:name="com.taotianhua.covidnews.ui.scholars.ScholarsFragment"
+        android:label="@string/title_scholars"
+        tools:layout="@layout/fragment_scholars" />
     <fragment
         android:id="@+id/navigation_user"
         android:name="com.taotianhua.covidnews.ui.user.UserFragment"

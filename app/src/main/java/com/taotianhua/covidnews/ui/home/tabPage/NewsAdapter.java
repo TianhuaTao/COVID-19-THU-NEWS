@@ -47,12 +47,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         }
     }
 
-    private class LoadingHolder extends RecyclerView.ViewHolder {
-
-        public LoadingHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-    }
+//    private class LoadingHolder extends RecyclerView.ViewHolder {
+//
+//        public LoadingHolder(@NonNull View itemView) {
+//            super(itemView);
+//        }
+//    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public NewsAdapter(List<EventBrief> myDataset) {
@@ -66,13 +66,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         notifyDataSetChanged();
     }
 
-    final int VIEW_TYPE_LOADING = 0;
-    final int VIEW_TYPE_ITEM = 1;
+//    final int VIEW_TYPE_LOADING = 0;
+//    final int VIEW_TYPE_ITEM = 1;
 
-    @Override
-    public int getItemViewType(int position) {
-        return mDataset.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
-    }
+//    @Override
+//    public int getItemViewType(int position) {
+//        return mDataset.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
+//    }
 
     // Create new views (invoked by the layout manager)
     @NotNull

@@ -61,7 +61,11 @@ public class Api {
 
         return getJson(  UrlConst.genUrlEntityQuery(query));
     }
+    public static   String  getAllScholarsJson()  {
+        Log.i("Api","getAllScholarsJson");
 
+        return getJson(  UrlConst.URL_SCHOLARS);
+    }
     public static Bitmap getBitmapWithUrl(String url){
         final Request request = new Request.Builder().url(url).build();
         Bitmap bitmap = null;
@@ -78,5 +82,8 @@ public class Api {
     public static   String  getEpidemicDataJson(){
         return getJson(UrlConst.genUrlEpidemic());
     }
+
+
+
   }
 

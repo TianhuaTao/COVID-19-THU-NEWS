@@ -7,6 +7,7 @@ import com.taotianhua.covidnews.model.Entity;
 import com.taotianhua.covidnews.model.EpidemicData;
 import com.taotianhua.covidnews.model.Event;
 import com.taotianhua.covidnews.model.EventBrief;
+import com.taotianhua.covidnews.model.Scholar;
 import com.taotianhua.covidnews.network.Api;
 import com.taotianhua.covidnews.network.UrlConst;
 
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -271,12 +273,20 @@ public class Repository {
         return entityList;
     }
 
+    Map<String, Bitmap> bitmapCache = new HashMap<>();
+
     public Bitmap getBitmapWithUrl(String url) {
         if (url == null ||
                 url.equals("null")  /* I hate the json hack */
         ) return null;
-        //TODO: add local cache
-        return Api.getBitmapWithUrl(url);
+        Bitmap bm;
+        if (bitmapCache.containsKey(url)) {
+            bm = bitmapCache.get(url);
+        } else {
+            bm = Api.getBitmapWithUrl(url);
+            bitmapCache.put(url, bm);
+        }
+        return bm;
     }
     /* ******************************Epidemic Data interface *********************************** */
 
@@ -286,9 +296,14 @@ public class Repository {
      * @param region
      * @return
      */
+
+    String epidemicDataJsonStr;
+
     public EpidemicData getEpidemicData(String region) {
         Log.i("Repository", "getEpidemicData");
-        String epidemicDataJsonStr = Api.getEpidemicDataJson();
+
+        if (epidemicDataJsonStr == null || epidemicDataJsonStr.isEmpty())
+            epidemicDataJsonStr = Api.getEpidemicDataJson();
         if (epidemicDataJsonStr == null) return null;
 
         EpidemicData epidemicData = new EpidemicData();
@@ -330,7 +345,7 @@ public class Repository {
             JSONObject jObject = new JSONObject(allEventsJson);
             JSONArray data = jObject.getJSONArray("datas");
 
-            for (int i = data.length()-1; i >=0 ; i--) {
+            for (int i = data.length() - 1; i >= 0; i--) {
                 EventBrief brief = EventBrief.fromJson(data.getJSONObject(i));
                 list.add(brief);
             }
@@ -339,14 +354,43 @@ public class Repository {
             e.printStackTrace();
         }
         Log.i("Repository", "Got all eventbriefs");
-       results = list.parallelStream()
+        results = list.parallelStream()
                 .filter(eventBrief -> eventBrief.getTitle().toLowerCase().contains(query.toLowerCase()))
-               .limit(limit)
-               .collect(Collectors.toList());
+                .limit(limit)
+                .collect(Collectors.toList());
         Log.i("Repository", "filter done");
         return results;
     }
 
+
+    ArrayList<Scholar> scholarsList;
+
+    public List<Scholar> loadAllScholars() {
+        Log.i("Repository", "loadAllScholars");
+        if (scholarsList != null && scholarsList.size() > 5)     // initialized and succeeded
+            return scholarsList;
+        scholarsList = new ArrayList<>();
+
+        String scholarsJson = Api.getAllScholarsJson();
+
+        if (scholarsJson == null) {
+            return scholarsList;
+        }
+        try {
+            JSONObject jObject = new JSONObject(scholarsJson);
+            JSONArray data = jObject.getJSONArray("data");
+
+            for (int i = 0; i < data.length(); i++) {
+                Scholar scholar = Scholar.fromJson(data.getJSONObject(i));
+                scholarsList.add(scholar);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.i("Repository", "loadAllScholars finished");
+        return scholarsList;
+    }
     /* ***************************************************************************************** */
 
     /* ******************************* Old interface ******************************************* */

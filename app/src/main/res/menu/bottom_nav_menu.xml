@@ -16,9 +16,9 @@
         android:title="@string/title_epidemic" />
 
     <item
-        android:id="@+id/navigation_experts"
+        android:id="@+id/navigation_scholars"
         android:icon="@drawable/crowd"
-        android:title="@string/title_experts" />
+        android:title="@string/title_scholars" />
 
     <item
         android:id="@+id/navigation_user"

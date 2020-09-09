@@ -99,6 +99,8 @@ public class HomeFragment extends Fragment {
             DialogFragment dialogFragment = new CatalogDialogFragment(this.homeViewModel);
             dialogFragment.show(ft, "catalog_dialog");
             return true;
+        }else if(item.getItemId()==R.id.history_menu_item){
+
         }
         return false;
     }

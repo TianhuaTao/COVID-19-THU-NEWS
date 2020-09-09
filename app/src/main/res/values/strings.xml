@@ -5,7 +5,7 @@
     <string name="title_user">User</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_experts">Experts</string>
+    <string name="title_scholars">Scholars</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

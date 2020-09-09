@@ -32,17 +32,19 @@ public class NewsSearchResultActivity extends AppCompatActivity {
     private NewsAdapter mAdapter;
     private LinearLayoutManager layoutManager;
     List<EventBrief> mList = new ArrayList<>();
-String query ;
+    String query;
     private MutableLiveData<List<EventBrief>> events;
     private boolean loading = false;
-ProgressBar progressBar;
+    ProgressBar progressBar;
+
     private LiveData<List<EventBrief>> getEvents() {
-        if(events ==null){
+        if (events == null) {
             events = new MutableLiveData<>();
             loadSearchResultsAsync();
         }
         return events;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,28 +53,29 @@ ProgressBar progressBar;
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            this.query  = intent.getStringExtra(SearchManager.QUERY);
+            this.query = intent.getStringExtra(SearchManager.QUERY);
 
-            setTitle("Search for "+"\""+query+"\"");
+            setTitle("Search for " + "\"" + query + "\"");
             configActivity();
             doMySearch(query);
         }
 
     }
-    private void doMySearch(String query){
-        getEvents().observe(this,events->{
+
+    private void doMySearch(String query) {
+        getEvents().observe(this, events -> {
             // Update UI
-            Log.i("NewsSearchResultActivity","observing changes");
+            Log.i("NewsSearchResultActivity", "observing changes");
             loading = false;
-            List<EventBrief> dataList= getEvents().getValue();
+            List<EventBrief> dataList = getEvents().getValue();
 
             mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int item_pos) {
-                    System.out.println("Clicked "+item_pos);
+                    System.out.println("Clicked " + item_pos);
                     Intent intent = new Intent(NewsSearchResultActivity.this, NewsDetailActivity.class);
-                    intent.putExtra("id",dataList.get(item_pos).getId());
-                    intent.putExtra("title",dataList.get(item_pos).getTitle());
+                    intent.putExtra("id", dataList.get(item_pos).getId());
+                    intent.putExtra("title", dataList.get(item_pos).getTitle());
 
                     startActivity(intent);
                 }
@@ -83,7 +86,7 @@ ProgressBar progressBar;
 
     }
 
-    private void configActivity(){
+    private void configActivity() {
         recyclerView = (RecyclerView) findViewById(R.id.news_search_result_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -95,17 +98,18 @@ ProgressBar progressBar;
         progressBar = findViewById(R.id.search_progress);
 
     }
-    private void loadSearchResultsAsync( ){
+
+    private void loadSearchResultsAsync() {
         // Do an asynchronous operation to fetch events for this catalog
 
-        new Thread(()->{
+        new Thread(() -> {
             Log.i("NewsSearchResultActivity", "loadSearchResultsAsync");
 
-                mList = Repository.getInstance().loadNewsSearchResult(this.query,100);
-                events.postValue(mList);
-                progressBar.post(()->{
-                    progressBar.setVisibility(View.GONE);
-                });
+            mList = Repository.getInstance().loadNewsSearchResult(this.query, 100);
+            events.postValue(mList);
+            progressBar.post(() -> {
+                progressBar.setVisibility(View.GONE);
+            });
         }).start();
     }
 }
