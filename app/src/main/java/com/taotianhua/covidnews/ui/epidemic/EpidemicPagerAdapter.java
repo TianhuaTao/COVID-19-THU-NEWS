@@ -1,11 +1,13 @@
 package com.taotianhua.covidnews.ui.epidemic;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.taotianhua.covidnews.ui.epidemic.cluster.ClusterFragment;
 import com.taotianhua.covidnews.ui.epidemic.entity.EntityQueryFragment;
 import com.taotianhua.covidnews.ui.epidemic.graph.GraphFragment;
 import com.taotianhua.covidnews.ui.epidemic.graph.GraphViewModel;
@@ -14,11 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class EpidemicPagerAdapter extends FragmentStatePagerAdapter {
 
-    static final String[] pageTitles= {"Graph","Entity"};
+    static final String[] pageTitles= {"Graph","Entity","Cluster"};
     GraphViewModel viewModel;
 
     EntityQueryFragment entityQueryFragment;
     GraphFragment graphFragment;
+    ClusterFragment clusterFragment;
 
     public EpidemicPagerAdapter(FragmentManager fm, GraphViewModel viewModel) {
         super(fm);
@@ -45,7 +48,7 @@ public class EpidemicPagerAdapter extends FragmentStatePagerAdapter {
                 graphFragment = fragment;
             }
             return graphFragment;
-        }else { /* i == 1*/
+        }else if(i == 1){ /* i == 1*/
             /* Entity */
             if (entityQueryFragment == null) {
                 EntityQueryFragment fragment = new EntityQueryFragment();
@@ -56,6 +59,16 @@ public class EpidemicPagerAdapter extends FragmentStatePagerAdapter {
             }
             return entityQueryFragment;
 
+        }else { /* i == 2 */
+            /* Cluster */
+            if(clusterFragment == null){
+                Log.i("MyApp", "Request cluster");
+                ClusterFragment fragment = new ClusterFragment();
+                Bundle args = new Bundle();
+                fragment.setArguments(args);
+                clusterFragment = fragment;
+            }
+            return clusterFragment;
         }
 
 

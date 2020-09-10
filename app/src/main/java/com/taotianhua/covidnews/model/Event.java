@@ -73,9 +73,9 @@ public class Event implements Serializable {
             for (int i = 0; i < labelsArray.length(); ++i) {
                 event.labels.add(labelsArray.getJSONObject(i).getString("label"));
             }
-            if (event.type.equals("event")) {
-                Log.i("MyApp", "contain =" + jsonObject.has("related_events"));
-            }
+//            if (event.type.equals("event")) {
+//                Log.i("MyApp", "contain =" + jsonObject.has("related_events"));
+//            }
         } catch (JSONException e) {
             event = null;
         }
