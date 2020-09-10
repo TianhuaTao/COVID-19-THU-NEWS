@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.taotianhua.covidnews.ui.epidemic.cluster.type.TypeFragment;
 
 public class ClusterPagerAdapter extends FragmentStatePagerAdapter {
-    static final String[] pageTitles= {"类型1","类型2","类型3","类型4","类型5","类型6","类型7","类型8",};
+    static final String[] pageTitles= {"科研进展","药物研究","免疫相关","新冠宿主","学院科研","各界讨论","病理研究","检疫新闻",};
 
     TypeFragment []typeFragment = {null, null, null, null, null, null, null, null};
 
