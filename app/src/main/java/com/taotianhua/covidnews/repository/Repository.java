@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.repository;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -15,6 +17,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -123,6 +128,42 @@ public class Repository {
         }
 
         return event;
+    }
+
+    /**
+     * 根据 id 获取 EventBrief
+     *
+     * @param id
+     * @return 出错时为 null
+     */
+    public EventBrief getEventBriefById(String id) {
+        Log.i("Repository", "getEventBriefById");
+        EventBrief eventBrief = null;
+        String listJson;
+        if (LocalStorage.exist("json", id)) {
+            listJson = LocalStorage.load("json", id);
+            if (listJson == null || listJson.length() == 0) {
+                listJson = Api.getNewsDetailJson(id);
+                LocalStorage.store("json", id, listJson);
+            }
+
+        } else {
+            listJson = Api.getNewsDetailJson(id);
+            if (listJson != null)
+                LocalStorage.store("json", id, listJson);
+        }
+
+        if (listJson == null) return null;
+
+        try {
+            JSONObject jObject = new JSONObject(listJson);
+            JSONObject data = jObject.getJSONObject("data");
+            eventBrief = EventBrief.fromJson(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return eventBrief;
     }
 
     /**
@@ -393,6 +434,45 @@ public class Repository {
     }
     /* ***************************************************************************************** */
 
+    public static List<EventBrief> getCertainTypeEventBreif(Context context, String type){
+        List<EventBrief> list = new ArrayList<>();
+        try {
+            JSONObject jObject = new JSONObject(getJson(context, "label.json"));
+            JSONArray allEventId = jObject.getJSONArray(type);
+
+            for(int i = 0; i < allEventId.length(); ++i){
+                String id = allEventId.getString(i);
+                list.add(Repository.getInstance().getEventBriefById(id));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    /**
+     * 从assets中获得Json
+     * @param context
+     * @param fileName
+     * @return
+     */
+    public static String getJson(Context context, String fileName){
+        StringBuilder stringBuilder = new StringBuilder();
+        //获得assets资源管理器
+        AssetManager assetManager =context.getAssets();
+        //使用IO流读取json文件内容
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName),"utf-8"));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
     /* ******************************* Old interface ******************************************* */
 
 //    public String getNewsDetailJson(String id) {

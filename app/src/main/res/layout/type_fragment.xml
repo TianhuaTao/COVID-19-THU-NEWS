@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.epidemic.cluster.type.TypeFragment">
 
-    <TextView
-        android:id="@+id/type_title"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/type_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="这是某一聚类的Fragment" />
+        android:scrollbars="vertical"
+        tools:context=".ui.epidemic.cluster.type.TypeFragment"
+        >
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </FrameLayout>

@@ -34,7 +34,7 @@ public class ClusterPagerAdapter extends FragmentStatePagerAdapter {
         if(typeFragment[position] == null) {
             TypeFragment fragment = new TypeFragment();
             Bundle args = new Bundle();
-            args.putString("type", String.valueOf(position+1));
+            args.putInt("type", position);
             fragment.setArguments(args);
             typeFragment[position] = fragment;
         }

@@ -156,7 +156,7 @@ public class GraphFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = spinner_country.getSelectedItem().toString();
                 //将province设置成所选城市对应的省份列表（若无则为空）
-                final String []provinceItem = RegionQuery.getProvinceList(selected);
+                final String []provinceItem = RegionQuery.getProvinceList(getContext(), selected);
                 ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,provinceItem);
                 spinner_province.setAdapter(provinceAdapter);
             }
@@ -172,7 +172,7 @@ public class GraphFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = spinner_province.getSelectedItem().toString();
                 //将county的item设置
-                final String []countyItem = RegionQuery.getCountyList(selected);
+                final String []countyItem = RegionQuery.getCountyList(getContext(), selected);
                 ArrayAdapter<String> countyAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, countyItem);
                 spinner_county.setAdapter(countyAdapter);
 //                graphViewModel.getEpidemicData(spinner_country.getSelectedItem().toString(), selected);

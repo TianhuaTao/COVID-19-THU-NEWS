@@ -36,4 +36,6 @@
     <string name="about">关于</string>
     <string name="entity_content_text">为了对抗新型冠状病毒（COVID-19）,全世界的科研人员、医疗人员、政府工作人员和公众渴望获得开放、全面的新冠知识。我们收集整理了现有COVID-19开放知识图谱，并进一步融合了它们，构建了一个大规模、结构化新冠知识图谱(COKG-19)。目前，COKG-19包含了505个概念、393个属性、26282个实例和32352个知识三元组，覆盖了医疗、健康、物资、防控、科研和人物等。此外，COKG-19是一个中英文双语知识图谱。
       \n COKG-19旨在帮助发布者和科研人员识别和链接文本中的语义知识，并提供更多智能服务和应用。我们将融合更多的开放知识，以不断更新COKG-19。</string>
+    <string name="Country_Province">province.json</string>
+    <string name="Province_County">county.json</string>
 </resources>
