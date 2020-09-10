@@ -112,4 +112,9 @@ public class Event implements Serializable {
 
     }
 
+    public String getWeiboText() {
+        return "[" + getTitle() + "]" +
+                content +
+                "(更多内容来自 COVID-News)";
+    }
 }

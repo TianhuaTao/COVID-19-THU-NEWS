@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.java.taotianhua.covidnews.model.Event;
 import com.java.taotianhua.covidnews.repository.HistoryManager;
 import com.java.taotianhua.covidnews.R;
 
@@ -25,6 +26,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     private TextView viewInfo;
     private TextView viewContent;
     private TextView viewLabel;
+    Event mEvent;
 //    private LinearLayout layout;
 
 
@@ -46,6 +48,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         newsDetailViewModel.getEvent(id).observe(this, event -> {
             if (event == null)
                 return;
+            mEvent = event;
             viewTitle.setText(event.getTitle());
             String content = event.getContent();
             if (content == null || content.length() == 0) {
@@ -99,6 +102,11 @@ public class NewsDetailActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_share:
                 Intent intent = new Intent(this, ShareNewsActivity.class);
+                String text_to_share = "[COVID-19 News]";
+                if(mEvent!=null){
+                    text_to_share = mEvent.getWeiboText();
+                }
+                intent.putExtra("text", text_to_share);
                 startActivity(intent);
                 break;
         }
