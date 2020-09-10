@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.NewsHistoryActivity">
+    tools:context="com.java.taotianhua.covidnews.ui.home.NewsHistoryActivity">
 
     <androidx.recyclerview.widget.RecyclerView
 
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:context=".ui.home.HomeFragment">
+        tools:context="com.java.taotianhua.covidnews.ui.home.HomeFragment">
 
 
     </androidx.recyclerview.widget.RecyclerView>

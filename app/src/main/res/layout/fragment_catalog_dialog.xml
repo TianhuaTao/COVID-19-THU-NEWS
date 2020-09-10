@@ -6,7 +6,7 @@
     android:layout_margin="20dp"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".ui.home.CatalogDialogFragment">
+    tools:context="com.java.taotianhua.covidnews.ui.home.CatalogDialogFragment">
 
 
     <ToggleButton

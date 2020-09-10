@@ -1,4 +1,4 @@
-<com.taotianhua.covidnews.ui.epidemic.entity.search.detail.RelationView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.java.taotianhua.covidnews.ui.epidemic.entity.search.detail.RelationView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -47,5 +47,5 @@
 
     </RelativeLayout>
 
-</com.taotianhua.covidnews.ui.epidemic.entity.search.detail.RelationView>
+</com.java.taotianhua.covidnews.ui.epidemic.entity.search.detail.RelationView>
 

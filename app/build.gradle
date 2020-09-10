@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.taotianhua.covidnews"
+        applicationId "com.java.taotianhua.covidnews"
         minSdkVersion 28
         targetSdkVersion 30
         versionCode 1
@@ -41,4 +41,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation("com.squareup.okhttp3:okhttp:4.8.1")
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    compile 'com.sina.weibo.sdk:core:2.0.3:openDefaultRelease@aar'
 }

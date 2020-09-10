@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.epidemic.graph.GraphFragment">
+    tools:context="com.java.taotianhua.covidnews.ui.epidemic.graph.GraphFragment">
 
     <LinearLayout
         android:id="@+id/spinner_layout"

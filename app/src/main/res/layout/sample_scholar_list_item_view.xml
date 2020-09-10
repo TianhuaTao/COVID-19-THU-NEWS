@@ -1,4 +1,4 @@
-<com.taotianhua.covidnews.ui.scholars.ScholarListItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.java.taotianhua.covidnews.ui.scholars.ScholarListItemView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -93,6 +93,6 @@
 
 
     </RelativeLayout>
-</com.taotianhua.covidnews.ui.scholars.ScholarListItemView>
+</com.java.taotianhua.covidnews.ui.scholars.ScholarListItemView>
 
 

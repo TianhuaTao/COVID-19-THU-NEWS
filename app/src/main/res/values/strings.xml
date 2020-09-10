@@ -19,8 +19,8 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="covid_19_knowledge_graph">Integrate multiple open knowledge graphs to help world fight against COVID-19</string>
-    <string name="covid_19_knowledge_graph_title">COVID-19 Knowledge Graph</string>
+    <string name="covid_19_knowledge_graph">融合多个开放知识图谱，帮助战胜新冠肺炎</string>
+    <string name="covid_19_knowledge_graph_title">COVID-19 知识图谱</string>
     <string name="search_hint">搜索</string>
     <string name="sample_description">Sample description</string>
     <string name="sampel_label">Sampel Label</string>
@@ -38,4 +38,9 @@
       \n COKG-19旨在帮助发布者和科研人员识别和链接文本中的语义知识，并提供更多智能服务和应用。我们将融合更多的开放知识，以不断更新COKG-19。</string>
     <string name="Country_Province">province.json</string>
     <string name="Province_County">county.json</string>
+
+
+    <string name="weibosdk_demo_toast_auth_success">授权成功</string>
+    <string name="weibosdk_demo_toast_auth_failed">授权失败</string>
+    <string name="weibosdk_demo_toast_auth_canceled">取消授权</string>
 </resources>

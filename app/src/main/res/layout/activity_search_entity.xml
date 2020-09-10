@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.epidemic.entity.search.SearchEntityActivity">
+    tools:context="com.java.taotianhua.covidnews.ui.epidemic.entity.search.SearchEntityActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_entity_result_recycler_view"

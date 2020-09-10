@@ -5,7 +5,7 @@
     android:id="@+id/entity_query_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.epidemic.entity.EntityQueryFragment"
+    tools:context="com.java.taotianhua.covidnews.ui.epidemic.entity.EntityQueryFragment"
 
 
     >
