@@ -347,24 +347,11 @@ public class Repository {
             epidemicDataJsonStr = Api.getEpidemicDataJson();
         if (epidemicDataJsonStr == null) return null;
 
-        EpidemicData epidemicData = new EpidemicData();
-        epidemicData.setRegion(region);
+        EpidemicData epidemicData = null;
         try {
             JSONObject regionData = new JSONObject(epidemicDataJsonStr).getJSONObject(region);
-            epidemicData.setBegin(regionData.getString("begin"));
-            JSONArray dataEntry = regionData.getJSONArray("data");
-            List<Integer> confirmedList = new ArrayList<>();
-            List<Integer> curedList = new ArrayList<>();
-            List<Integer> deadList = new ArrayList<>();
-            for (int i = 0; i < dataEntry.length(); ++i) {
-                JSONArray entry = dataEntry.getJSONArray(i);
-                confirmedList.add(entry.getInt(0));
-                curedList.add(entry.getInt(2));
-                deadList.add(entry.getInt(3));
-            }
-            epidemicData.setConfirmed(confirmedList);
-            epidemicData.setCured(curedList);
-            epidemicData.setDead(deadList);
+            epidemicData = EpidemicData.fromJson(regionData);
+            epidemicData.setRegion(region);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

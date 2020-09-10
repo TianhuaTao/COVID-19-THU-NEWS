@@ -1,6 +1,11 @@
 package com.taotianhua.covidnews.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EpidemicData implements Serializable{
@@ -58,6 +63,30 @@ public class EpidemicData implements Serializable{
 
     public void setDead(List<Integer> dead) {
         this.dead = dead;
+    }
+
+    public static EpidemicData fromJson(JSONObject regionData){
+        EpidemicData epidemicData = new EpidemicData();
+        try {
+            epidemicData.setBegin(regionData.getString("begin"));
+            JSONArray dataEntry = regionData.getJSONArray("data");
+            List<Integer> confirmedList = new ArrayList<>();
+            List<Integer> curedList = new ArrayList<>();
+            List<Integer> deadList = new ArrayList<>();
+            for (int i = 0; i < dataEntry.length(); ++i) {
+                JSONArray entry = dataEntry.getJSONArray(i);
+                confirmedList.add(entry.getInt(0));
+                curedList.add(entry.getInt(2));
+                deadList.add(entry.getInt(3));
+            }
+            epidemicData.setConfirmed(confirmedList);
+            epidemicData.setCured(curedList);
+            epidemicData.setDead(deadList);
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        return epidemicData;
     }
 }
 
