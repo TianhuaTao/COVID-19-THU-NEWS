@@ -83,6 +83,16 @@ public class Event implements Serializable {
         return event;
     }
 
+
+    public EventBrief getBrief(){
+        EventBrief brief = new EventBrief();
+        brief.setContent(this.content);
+        brief.setId(this.id);
+        brief.setTime(this.time);
+        brief.setType(this.type);
+        brief.setTitle(this.title);
+        return brief;
+    }
     /**
      * Helper function to parse JSON
      *

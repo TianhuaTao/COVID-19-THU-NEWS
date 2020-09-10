@@ -62,7 +62,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public void setDataSet(List<EventBrief> newList) {
         mDataset.clear();
-        mDataset.addAll(newList);
+        if(newList!=null){
+            mDataset.addAll(newList);
+        }
         notifyDataSetChanged();
     }
 

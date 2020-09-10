@@ -34,10 +34,10 @@ public class ScholarsFragment extends Fragment {
 
     private ScholarsViewModel mViewModel;
     private RecyclerView recyclerView;
-    List<Scholar> mList = new ArrayList<>();
+    private List<Scholar> mList = new ArrayList<>();
 
     private ScholarAdapter mAdapter;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     private MutableLiveData<List<Scholar>> scholars;
 
     @Override
@@ -62,7 +62,7 @@ public class ScholarsFragment extends Fragment {
     }
 
     private void loadScholarsAsync() {
-        // Do an asynchronous operation to fetch events for this catalog
+        // Do an asynchronous operation to fetch data
 
         new Thread(() -> {
             Log.i("ScholarsFragment", "loadScholarsAsync");

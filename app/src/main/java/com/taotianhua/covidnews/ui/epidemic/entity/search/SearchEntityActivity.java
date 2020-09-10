@@ -10,6 +10,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.taotianhua.covidnews.R;
 import com.taotianhua.covidnews.model.Entity;
@@ -24,11 +26,12 @@ import java.util.List;
 
 public class SearchEntityActivity extends AppCompatActivity {
 
-
+private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private EntityAdapter mAdapter;
     private LinearLayoutManager layoutManager;
     private MutableLiveData<List<Entity>> entitiesData;
+    String query;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +40,8 @@ public class SearchEntityActivity extends AppCompatActivity {
         // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            setTitle("Search for "+"\""+query+"\"");
+             query = intent.getStringExtra(SearchManager.QUERY);
+            setTitle("搜索 "+"\""+query+"\"");
             configActivity();
             doMySearch(query);
         }
@@ -53,6 +56,7 @@ public class SearchEntityActivity extends AppCompatActivity {
     }
 
     private void configActivity(){
+        progressBar = findViewById(R.id.entity_search_progress_bar);
         mAdapter = new EntityAdapter(new ArrayList<>());    // first empty
 
 
@@ -80,6 +84,10 @@ public class SearchEntityActivity extends AppCompatActivity {
 
 
             mAdapter.setDataSet(dataList);
+            progressBar.setVisibility(View.INVISIBLE);
+
+            int count = dataList==null? 0: dataList.size();
+            setTitle("搜索 "+"\""+this.query+"\""+" ("+count+"个结果)");
         });
 
     }

@@ -9,7 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        >
 
 
         <!--    name -->
@@ -74,6 +76,17 @@
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/entity_detail_relation_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:text="暂无关系信息"
+            android:textColor="@color/colorBlack"
+
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/relations_recycler"
             android:layout_width="match_parent"
@@ -95,6 +108,15 @@
             android:text="@string/properties"
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
+        <TextView
+            android:id="@+id/entity_detail_property_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:text="暂无属性信息"
+            android:textColor="@color/colorBlack"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/properties_recycler"
             android:layout_width="match_parent"

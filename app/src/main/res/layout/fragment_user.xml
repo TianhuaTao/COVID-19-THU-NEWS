@@ -24,17 +24,22 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Clear History" />
+                    android:text="@string/clear_history"
+                    android:onClick="onClearHistory"
+                    />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Clear Cache" />
+                    android:text="@string/clear_cache"
+                    android:onClick="onClearCache"/>
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="About" />
+                    android:text="@string/about"
+                    android:onClick="onAbout"
+                     />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

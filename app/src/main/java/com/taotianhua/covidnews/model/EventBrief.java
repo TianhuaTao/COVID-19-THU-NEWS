@@ -1,16 +1,12 @@
 package com.taotianhua.covidnews.model;
 
 import com.taotianhua.covidnews.repository.HistoryManager;
-import com.taotianhua.covidnews.repository.LocalStorage;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -26,13 +22,33 @@ public class EventBrief implements Serializable {
     private String title;
     private String type;
 
-    private Boolean alreadyRead;    /* 通过构造的时候查询历史记录计算*/
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public Boolean getAlreadyRead() {
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private boolean alreadyRead;    /* 通过构造的时候查询历史记录计算*/
+
+    public boolean getAlreadyRead() {
         return alreadyRead;
     }
 
-    public void setAlreadyRead(Boolean alreadyRead) {
+    public void setAlreadyRead(boolean alreadyRead) {
         this.alreadyRead = alreadyRead;
         HistoryManager.getInstance().addHistory(this.id);
     }

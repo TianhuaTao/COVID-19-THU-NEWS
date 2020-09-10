@@ -35,7 +35,7 @@ public class EntityDetailActivity extends AppCompatActivity {
     private Entity mEntity;
     TextView labelView;
     TextView descriptionView;
-    ImageView imageView ;
+    ImageView imageView;
 
     RecyclerView realationsRecyclerView;
 
@@ -51,29 +51,34 @@ public class EntityDetailActivity extends AppCompatActivity {
     }
 
     private void getIncomingIntent() {
-        if ( getIntent().hasExtra("entity")) {
-             mEntity = (Entity) getIntent().getSerializableExtra("entity");
+        if (getIntent().hasExtra("entity")) {
+            mEntity = (Entity) getIntent().getSerializableExtra("entity");
         }
     }
 
-    private void configUI(){
+    private void configUI() {
 
         setTitle(mEntity.getLabel());
         labelView = findViewById(R.id.entity_detail_label);
-        descriptionView= findViewById(R.id.entity_detail_description_text);
-        imageView= findViewById(R.id.entity_detail_image_view);
+        descriptionView = findViewById(R.id.entity_detail_description_text);
+        imageView = findViewById(R.id.entity_detail_image_view);
 
         labelView.setText(mEntity.getLabel());
-        descriptionView.setText(mEntity.getAbstractInfo().getDescription());
+
+        String desc = mEntity.getAbstractInfo().getDescription();
+        if (desc.isEmpty())
+            descriptionView.setText("暂无信息");
+        else
+            descriptionView.setText(desc);
 
 
         imageView.setImageDrawable(null);
         imageView.setVisibility(GONE);
         // fetch picture in background and update UI
-        new Thread(()->{
+        new Thread(() -> {
             Bitmap bm = mEntity.fetchImage();
-            if(bm!=null){
-                imageView.post(()->{
+            if (bm != null) {
+                imageView.post(() -> {
                     imageView.setVisibility(VISIBLE);
                     imageView.setImageBitmap(bm);
                 });
@@ -93,18 +98,28 @@ public class EntityDetailActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
 
-       realationsRecyclerView.setLayoutManager(layoutManager);
+        realationsRecyclerView.setLayoutManager(layoutManager);
+        List<Entity.COVID.Entity_Relation> r = mEntity.getAbstractInfo().getCovid().getRelations();
+        if (!r.isEmpty()) {
+            TextView v = findViewById(R.id.entity_detail_relation_text);
+            v.setVisibility(GONE);
+        }
 
-        RelationsAdapter adapter = new RelationsAdapter(mEntity.getAbstractInfo().getCovid().getRelations());
+        RelationsAdapter adapter = new RelationsAdapter(r);
         realationsRecyclerView.setAdapter(adapter);
 
         // properties
-    propertiesRecyclerView =findViewById(R.id.properties_recycler);
+        propertiesRecyclerView = findViewById(R.id.properties_recycler);
         propertiesRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         propertiesRecyclerView.setLayoutManager(layoutManager);
 
-        PropertiesAdapter adapter2 = new PropertiesAdapter(mEntity.getAbstractInfo().getCovid().getProperties());
+        Map<String, String> p = mEntity.getAbstractInfo().getCovid().getProperties();
+        if (!p.isEmpty()) {
+            TextView v = findViewById(R.id.entity_detail_property_text);
+            v.setVisibility(GONE);
+        }
+        PropertiesAdapter adapter2 = new PropertiesAdapter(p);
         propertiesRecyclerView.setAdapter(adapter2);
     }
 

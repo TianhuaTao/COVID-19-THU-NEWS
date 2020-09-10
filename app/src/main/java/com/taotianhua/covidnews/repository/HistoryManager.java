@@ -1,5 +1,7 @@
 package com.taotianhua.covidnews.repository;
 
+import android.util.Log;
+
 import com.taotianhua.covidnews.COVIDNewsApplication;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 /**
@@ -89,13 +92,29 @@ public class HistoryManager {
             return new ArrayList<>();
         }
 
-        List<String> list = Arrays.asList(content.split("\n"));
+        List<String> list = Arrays.stream(content.split("\n"))
+                .distinct()
+                .collect(Collectors.toList());
         Collections.reverse(list);  /* 最后插入的最新 */
         return list;
     }
 
     public void clearHistory() {
-        // TODO
+        // Get the file
+        File directory = COVIDNewsApplication.getAppContext().getFilesDir();
+        File subDir = new File(directory, prefix);
+        if (!subDir.exists()) {
+            subDir.mkdir();
+        }
+        File file = new File(subDir, filename);
+
+       boolean succeed =  file.delete();
+       if(succeed){
+           Log.i("HistoryManager","history file deleted");
+       }else {
+           Log.i("HistoryManager","no file is deleted");
+       }
+       historyCache.clear();
     }
 
     /**

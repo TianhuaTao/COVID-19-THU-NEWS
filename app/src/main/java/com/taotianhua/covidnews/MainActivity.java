@@ -1,8 +1,11 @@
 package com.taotianhua.covidnews;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.taotianhua.covidnews.repository.HistoryManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -31,4 +34,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    public void onClearHistory(View view) {
+        Log.i("","ClearHistory clicked");
+        HistoryManager.getInstance().clearHistory();
+        // TODO: give a message
+    }
+
+    public void onAbout(View view) {
+        Log.i("","About clicked");
+
+    }
+
+    public void onClearCache(View view) {
+        Log.i("","ClearCache clicked");
+        // TODO: clear cache
+    }
 }

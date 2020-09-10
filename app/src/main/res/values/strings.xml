@@ -21,14 +21,19 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="covid_19_knowledge_graph">Integrate multiple open knowledge graphs to help world fight against COVID-19</string>
     <string name="covid_19_knowledge_graph_title">COVID-19 Knowledge Graph</string>
-    <string name="search_hint">Search Entity</string>
+    <string name="search_hint">搜索</string>
     <string name="sample_description">Sample description</string>
     <string name="sampel_label">Sampel Label</string>
-    <string name="relations">Relations</string>
-    <string name="properties">Properties</string>
-    <string name="entity">Entity</string>
+    <string name="relations">关系</string>
+    <string name="properties">属性</string>
+    <string name="entity">实体</string>
     <string name="search">搜索</string>
     <string name="history">历史记录</string>
     <string name="choose_catalog">选择分类</string>
     <string name="query">查询</string>
+    <string name="clear_history">清除历史记录</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="about">关于</string>
+    <string name="entity_content_text">为了对抗新型冠状病毒（COVID-19）,全世界的科研人员、医疗人员、政府工作人员和公众渴望获得开放、全面的新冠知识。我们收集整理了现有COVID-19开放知识图谱，并进一步融合了它们，构建了一个大规模、结构化新冠知识图谱(COKG-19)。目前，COKG-19包含了505个概念、393个属性、26282个实例和32352个知识三元组，覆盖了医疗、健康、物资、防控、科研和人物等。此外，COKG-19是一个中英文双语知识图谱。
+      \n COKG-19旨在帮助发布者和科研人员识别和链接文本中的语义知识，并提供更多智能服务和应用。我们将融合更多的开放知识，以不断更新COKG-19。</string>
 </resources>

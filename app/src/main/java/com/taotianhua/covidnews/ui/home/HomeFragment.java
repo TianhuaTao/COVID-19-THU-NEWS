@@ -28,6 +28,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.taotianhua.covidnews.R;
+import com.taotianhua.covidnews.ui.scholars.ScholarDetailActivity;
+import com.taotianhua.covidnews.ui.scholars.ScholarsFragment;
 
 
 public class HomeFragment extends Fragment {
@@ -100,7 +102,8 @@ public class HomeFragment extends Fragment {
             dialogFragment.show(ft, "catalog_dialog");
             return true;
         }else if(item.getItemId()==R.id.history_menu_item){
-
+            Intent intent = new Intent(this.getContext(), NewsHistoryActivity.class);
+            startActivity(intent);
         }
         return false;
     }

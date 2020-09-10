@@ -59,8 +59,6 @@ public class LocalStorage {
                 Log.e("LocalStorage", "cannot make dir");
             }
         }
-        System.out.println(subDir.exists());
-        System.out.println(subDir.isDirectory());
 
         File file = new File(subDir, name);
 
