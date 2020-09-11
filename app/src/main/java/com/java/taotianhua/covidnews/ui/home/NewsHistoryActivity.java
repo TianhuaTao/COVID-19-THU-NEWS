@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.java.taotianhua.covidnews.model.Event;
 import com.java.taotianhua.covidnews.model.EventBrief;
@@ -41,7 +42,11 @@ public class NewsHistoryActivity extends AppCompatActivity {
         Thread t = new Thread(() -> {
             for (String id : ids) {
                 Event event = Repository.getInstance().getNewsDetail(id);
-                eventBriefList.add(event.getBrief());
+                if(event==null){
+                    Log.i("History","A history record failed to load");
+                }else {
+                    eventBriefList.add(event.getBrief());
+                }
             }
         });
         t.start();
@@ -55,16 +60,13 @@ public class NewsHistoryActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new NewsAdapter(eventBriefList);  // init with empty list
-        mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int item_pos) {
-                System.out.println("Clicked " + item_pos);
-                Intent intent = new Intent(NewsHistoryActivity.this, NewsDetailActivity.class);
-                intent.putExtra("id", eventBriefList.get(item_pos).getId());
-                intent.putExtra("title", eventBriefList.get(item_pos).getTitle());
+        mAdapter.setOnItemClickListener(item_pos -> {
+            System.out.println("Clicked " + item_pos);
+            Intent intent = new Intent(NewsHistoryActivity.this, NewsDetailActivity.class);
+            intent.putExtra("id", eventBriefList.get(item_pos).getId());
+            intent.putExtra("title", eventBriefList.get(item_pos).getTitle());
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
         recyclerView.setAdapter(mAdapter);
     }
