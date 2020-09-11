@@ -20,8 +20,7 @@ import java.util.List;
 
 public class NewsHistoryActivity extends AppCompatActivity {
 
-    //    List<Event> eventList;
-    List<EventBrief> eventBriefList;
+    private List<EventBrief> eventBriefList;
 
     private RecyclerView recyclerView;
     private NewsAdapter mAdapter;
@@ -40,19 +39,15 @@ public class NewsHistoryActivity extends AppCompatActivity {
         List<String> ids = HistoryManager.getInstance().getHistory();
         eventBriefList = new ArrayList<>();
         Thread t = new Thread(() -> {
-            for (String id :
-                    ids) {
+            for (String id : ids) {
                 Event event = Repository.getInstance().getNewsDetail(id);
-//            eventList.add(event);
                 eventBriefList.add(event.getBrief());
             }
         });
         t.start();
         try {
             t.join();
-        } catch (InterruptedException ignored) {
-
-        }
+        } catch (InterruptedException ignored) {}
 
         setTitle("历史记录 (" + eventBriefList.size() + "条)");
         recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);

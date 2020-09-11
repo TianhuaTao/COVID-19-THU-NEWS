@@ -24,9 +24,7 @@ public class EntityQueryFragment extends Fragment {
 
     private EntityQueryViewModel mViewModel;
     private View rootView;
-    public static EntityQueryFragment newInstance() {
-        return new EntityQueryFragment();
-    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,15 +40,16 @@ public class EntityQueryFragment extends Fragment {
     }
 
     SearchView searchView;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        SearchManager searchManager = (SearchManager) getActivity(). getSystemService(Context.SEARCH_SERVICE);
-        searchView= view.findViewById(R.id.entityQuerySearchView) ;
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = view.findViewById(R.id.entityQuerySearchView);
         // Assumes current activity is the searchable activity
         SearchableInfo searchableInfo = searchManager.getSearchableInfo(new ComponentName(this.getActivity(), SearchEntityActivity.class));
         searchView.setSearchableInfo(searchableInfo);
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-        rootView = getActivity(). findViewById(R.id.entity_query_scroll_view);
+        rootView = getActivity().findViewById(R.id.entity_query_scroll_view);
     }
 
 

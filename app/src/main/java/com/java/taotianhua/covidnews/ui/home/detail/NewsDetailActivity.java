@@ -27,15 +27,13 @@ public class NewsDetailActivity extends AppCompatActivity {
     private TextView viewContent;
     private TextView viewLabel;
     Event mEvent;
-//    private LinearLayout layout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-//        layout = findViewById(R.id.news_detail_linear_layout);
-//        layout.setMovementMethod(new ScrollingMovementMethod());
+
 
         newsDetailViewModel = new ViewModelProvider(this).get(NewsDetailViewModel.class);
         viewTitle = (TextView) findViewById(R.id.detail_title);
@@ -56,20 +54,18 @@ public class NewsDetailActivity extends AppCompatActivity {
             } else {
                 viewContent.setText(content);
             }
-            String sourceLine = "来源: "+((event.getSource() == null|| event.getSource().isEmpty() )?  "网络": event.getSource());
-            String timeLine =  "时间: " +((event.getTime() == null || event.getTime().isEmpty())? "未知" : event.getTime());
+            String sourceLine = "来源: " + ((event.getSource() == null || event.getSource().isEmpty()) ? "网络" : event.getSource());
+            String timeLine = "时间: " + ((event.getTime() == null || event.getTime().isEmpty()) ? "未知" : event.getTime());
 
             viewInfo.setText(sourceLine + "\n" + timeLine);
 
             ArrayList<String> labels = event.getLabels();
             String labelStr = "#";
-            for(int i = 0; i < labels.size(); ++i){
+            for (int i = 0; i < labels.size(); ++i) {
                 labelStr += labels.get(i) + " #";
             }
-            labelStr = labelStr.substring(0, labelStr.length()-1); //去掉最后一个#
+            labelStr = labelStr.substring(0, labelStr.length() - 1); //去掉最后一个#
             viewLabel.setText(labelStr);
-//            viewLabel.setTextColor(Color.argb(1,40,155,226));
-
 
             HistoryManager.getInstance().addHistory(event.getId());
         });
@@ -93,17 +89,16 @@ public class NewsDetailActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.news_detail_menu, menu);
 
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_share:
                 Intent intent = new Intent(this, ShareNewsActivity.class);
                 String text_to_share = "[COVID-19 News]";
-                if(mEvent!=null){
+                if (mEvent != null) {
                     text_to_share = mEvent.getWeiboText();
                 }
                 intent.putExtra("text", text_to_share);

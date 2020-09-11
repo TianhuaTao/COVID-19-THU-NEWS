@@ -21,10 +21,10 @@ public class CatalogDialogFragment extends DialogFragment {
     this.viewModel = homeViewModel;
     }
 
-    ToggleButton newsButton;
-    ToggleButton paperButton;
-    ToggleButton eventButton;
-    ToggleButton pointsButton;
+    private ToggleButton newsButton;
+    private ToggleButton paperButton;
+    private ToggleButton eventButton;
+    private ToggleButton pointsButton;
 
     HomeViewModel viewModel;
 
@@ -32,18 +32,14 @@ public class CatalogDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            // empty slot
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-
         return inflater.inflate(R.layout.fragment_catalog_dialog, container, false);
-
     }
 
     @Override
@@ -58,33 +54,9 @@ public class CatalogDialogFragment extends DialogFragment {
         eventButton.setChecked(viewModel.isSelected(2));
         pointsButton.setChecked(viewModel.isSelected(3));
 
-        newsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setSelected(0, newsButton.isChecked());
-            }
-        });
-
-        paperButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setSelected(1, paperButton.isChecked());
-
-            }
-        });
-        eventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setSelected(2, eventButton.isChecked());
-
-            }
-        });
-        pointsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewModel.setSelected(3, pointsButton.isChecked());
-
-            }
-        });
+        newsButton.setOnClickListener(view1 -> viewModel.setSelected(0, newsButton.isChecked()));
+        paperButton.setOnClickListener(view12 -> viewModel.setSelected(1, paperButton.isChecked()));
+        eventButton.setOnClickListener(view13 -> viewModel.setSelected(2, eventButton.isChecked()));
+        pointsButton.setOnClickListener(view14 -> viewModel.setSelected(3, pointsButton.isChecked()));
     }
 }

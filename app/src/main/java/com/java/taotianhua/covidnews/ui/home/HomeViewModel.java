@@ -27,13 +27,13 @@ public class HomeViewModel extends ViewModel {
 
     HomePagerAdapter homePagerAdapter;
 
-    public  void setSelected(int position, Boolean isSelected){
+    public void setSelected(int position, Boolean isSelected) {
         this.selected.set(position, isSelected);
 
         homePagerAdapter.notifyDataSetChanged();
     }
 
-    public Boolean isSelected(int real_position){
+    public Boolean isSelected(int real_position) {
         return selected.get(real_position);
     }
 

@@ -1,7 +1,7 @@
 package com.java.taotianhua.covidnews.ui.scholars;
 
 import android.view.LayoutInflater;
-import android.view.View;
+
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -27,8 +27,7 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ScholarV
         ScholarListItemView v = (ScholarListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.sample_scholar_list_item_view, parent, false);
 
-        ScholarAdapter.ScholarViewHolder vh = new ScholarAdapter.ScholarViewHolder(v, mListener);
-        return vh;
+        return new ScholarViewHolder(v, mListener);
     }
 
     @Override
@@ -49,24 +48,19 @@ public class ScholarAdapter extends RecyclerView.Adapter<ScholarAdapter.ScholarV
     }
 
     public static class ScholarViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+
         public ScholarListItemView cardView;
 
         public ScholarViewHolder(ScholarListItemView v, OnItemClickListener listener) {
             super(v);
             cardView = v;
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
-                        }
+            v.setOnClickListener(view -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
                     }
-
-
                 }
             });
         }

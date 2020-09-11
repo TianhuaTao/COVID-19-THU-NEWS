@@ -15,19 +15,16 @@ public class HomePagerAdapter extends FragmentStatePagerAdapter {
     public HomePagerAdapter(FragmentManager fm, HomeViewModel viewModel) {
         super(fm);
         this.viewModel = viewModel;
-
     }
 
     @NotNull
     @Override
     public Fragment getItem(int i) {
         return viewModel.getSelectedFragmentAtIndex(i);
-
     }
 
     @Override
     public int getCount() {
-
         return viewModel.getCatalogCount();
     }
 

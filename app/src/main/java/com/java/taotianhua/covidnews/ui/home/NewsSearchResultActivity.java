@@ -95,7 +95,7 @@ public class NewsSearchResultActivity extends AppCompatActivity {
     }
 
     private void loadSearchResultsAsync() {
-        // Do an asynchronous operation to fetch events for this catalog
+        // Do an asynchronous operation to fetch data
 
         new Thread(() -> {
             Log.i("NewsSearchResultActivity", "loadSearchResultsAsync");

@@ -44,9 +44,9 @@ public class ScholarListItemView extends CardView {
 
         // set photo
         imageView = findViewById(R.id.scholar_photo);
-        new Thread(()->{
+        new Thread(() -> {
             Bitmap bm = Repository.getInstance().getBitmapWithUrl(scholar.getAvatar_url());
-            imageView.post(()->{
+            imageView.post(() -> {
                 imageView.setImageBitmap(bm);
             });
         }).start();
@@ -61,7 +61,7 @@ public class ScholarListItemView extends CardView {
         textView = findViewById(R.id.scholar_affiliation_view);
         textView.setText(scholar.getProfile().getProperAffiliation());
 
-        if(scholar.isIs_passedaway()){
+        if (scholar.isIs_passedaway()) {
             textView = findViewById(R.id.scholar_list_pass_away);
             textView.setVisibility(VISIBLE);
         }

@@ -19,9 +19,7 @@ import static com.java.taotianhua.covidnews.R.*;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
     private List<EventBrief> mDataset;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public static class NewsViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public NewsListItemView cardView;
@@ -30,30 +28,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             super(v);
             cardView = v;
 
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(position);
-                        }
+            v.setOnClickListener(view -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
                     }
-                    view.setBackgroundColor(COVIDNewsApplication.getAppContext().getColor(color.colorRead));
-
                 }
+                view.setBackgroundColor(COVIDNewsApplication.getAppContext().getColor(color.colorRead));
+
             });
         }
     }
 
-//    private class LoadingHolder extends RecyclerView.ViewHolder {
-//
-//        public LoadingHolder(@NonNull View itemView) {
-//            super(itemView);
-//        }
-//    }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public NewsAdapter(List<EventBrief> myDataset) {
         mDataset = myDataset;
 //        mDataset.add(null);
@@ -61,19 +49,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     public void setDataSet(List<EventBrief> newList) {
         mDataset.clear();
-        if(newList!=null){
+        if (newList != null) {
             mDataset.addAll(newList);
         }
         notifyDataSetChanged();
     }
 
-//    final int VIEW_TYPE_LOADING = 0;
-//    final int VIEW_TYPE_ITEM = 1;
-
-//    @Override
-//    public int getItemViewType(int position) {
-//        return mDataset.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
-//    }
 
     // Create new views (invoked by the layout manager)
     @NotNull
@@ -85,8 +66,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         NewsListItemView v = (NewsListItemView) LayoutInflater.from(parent.getContext())
                 .inflate(layout.sample_news_list_item_view, parent, false);
 
-        NewsViewHolder vh = new NewsViewHolder(v, mListener);
-        return vh;
+        return new NewsViewHolder(v, mListener);
 
 
     }

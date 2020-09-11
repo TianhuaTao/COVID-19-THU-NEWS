@@ -10,22 +10,20 @@ import com.java.taotianhua.covidnews.repository.Repository;
 
 
 public class NewsDetailViewModel extends ViewModel {
-
-
-
     private MutableLiveData<Event> mEvent;
+
     public LiveData<Event> getEvent(String newsID) {
-        if(mEvent ==null){
+        if (mEvent == null) {
             mEvent = new MutableLiveData<>();
             loadDetailAsync(newsID);
         }
         return mEvent;
     }
 
-    private void loadDetailAsync(String id){
+    private void loadDetailAsync(String id) {
         // Do an asynchronous operation to fetch event.
-        new Thread(()->{
-            Event event =  Repository.getInstance().getNewsDetail(id);  // time consuming
+        new Thread(() -> {
+            Event event = Repository.getInstance().getNewsDetail(id);  // time consuming
             mEvent.postValue(event);
         }).start();
     }

@@ -1,12 +1,14 @@
 package com.java.taotianhua.covidnews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import com.java.taotianhua.covidnews.repository.HistoryManager;
+import com.java.taotianhua.covidnews.ui.user.AboutActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -36,19 +38,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClearHistory(View view) {
-        Log.i("","ClearHistory clicked");
+        Log.i("", "ClearHistory clicked");
         HistoryManager.getInstance().clearHistory();
-        // TODO: give a message
+        Toast.makeText(this,
+                "清除历史记录",
+                Toast.LENGTH_LONG).show();
     }
 
     public void onAbout(View view) {
-        Log.i("","About clicked");
-
+        Log.i("", "About clicked");
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     public void onClearCache(View view) {
-        Log.i("","ClearCache clicked");
-        // TODO: clear cache
+        Log.i("", "ClearCache clicked");
+        Toast.makeText(this,
+                "暂不支持清理缓存",
+                Toast.LENGTH_LONG).show();
     }
 
 

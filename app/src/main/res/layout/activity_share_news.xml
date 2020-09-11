@@ -58,10 +58,11 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/weibo_cardview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toTopOf="@id/send_weibo"
+        app:layout_constraintBottom_toTopOf="@id/recm_textview"
         app:layout_constraintTop_toBottomOf="@id/token_text_view">
 
         <ScrollView
@@ -71,15 +72,27 @@
             <TextView
                 android:id="@+id/weibo_text"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp" />
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
 
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/recm_textview"
 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="@string/recm_text"
+        app:layout_constraintBottom_toTopOf="@id/send_weibo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/weibo_cardview" />
     <Button
         android:id="@+id/send_weibo"
         android:layout_width="match_parent"

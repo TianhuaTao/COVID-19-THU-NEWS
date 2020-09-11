@@ -8,8 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.method.ScrollingMovementMethod;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -24,14 +23,19 @@ import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
-import com.sina.weibo.sdk.exception.WeiboException;
-import com.sina.weibo.sdk.net.RequestListener;
+
 import com.java.taotianhua.covidnews.R;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 
 import java.text.SimpleDateFormat;
 
+
+/**
+ * 你要问我这里的代码为什么是这样写的
+ * 我只能说无可奉告
+ * 反正我也就按照 Weibo SDK 中的示例写的
+ */
 public class ShareNewsActivity extends AppCompatActivity implements WbShareCallback {
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mAccessToken;
@@ -69,28 +73,22 @@ public class ShareNewsActivity extends AppCompatActivity implements WbShareCallb
 
         // 创建微博实例
         mSsoHandler = new SsoHandler(ShareNewsActivity.this);
-// SSO client
+
 
 
         // SSO all
-        findViewById(R.id.obtain_token_via_signature).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("obtain_token_via_signature", "before authorize");
+        findViewById(R.id.obtain_token_via_signature).setOnClickListener(v -> {
+            Log.i("obtain_token_via_signature", "before authorize");
 
-                mSsoHandler.authorize(new SelfWbAuthListener());
-                Log.i("obtain_token_via_signature", "after authorize");
+            mSsoHandler.authorize(new SelfWbAuthListener());
+            Log.i("obtain_token_via_signature", "after authorize");
 
-            }
         });
         // 用户登出
-        findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AccessTokenKeeper.clear(getApplicationContext());
-                mAccessToken = new Oauth2AccessToken();
-                updateTokenView(false);
-            }
+        findViewById(R.id.logout).setOnClickListener(v -> {
+            AccessTokenKeeper.clear(getApplicationContext());
+            mAccessToken = new Oauth2AccessToken();
+            updateTokenView(false);
         });
 
 
@@ -210,7 +208,7 @@ public class ShareNewsActivity extends AppCompatActivity implements WbShareCallb
     public static final int SHARE_CLIENT = 1;
     public static final int SHARE_ALL_IN_ONE = 2;
     private WbShareHandler shareHandler;
-    private int mShareType = SHARE_CLIENT;
+    private int mShareType = SHARE_ALL_IN_ONE;
 
     /**
      * 第三方应用发送请求消息到微博，唤起微博分享界面。

@@ -21,9 +21,7 @@ public class ScholarDetailActivity extends AppCompatActivity {
         getIncomingIntent();
 
     }
-
     private Scholar mScholar;
-
 
     private void getIncomingIntent() {
         if (getIntent().hasExtra("index")) {
@@ -60,7 +58,6 @@ public class ScholarDetailActivity extends AppCompatActivity {
         textView.setText(mScholar.getProfile().getBio());
 
         // set index
-
         textView = findViewById(R.id.index_a_text);
         textView.setText(Double.toString(mScholar.getIndices().getActivity()));
         textView = findViewById(R.id.index_h_text);

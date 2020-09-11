@@ -72,7 +72,6 @@ public class ScholarsFragment extends Fragment {
     }
 
     private LinearLayoutManager layoutManager;
-    private boolean loading = false;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -89,17 +88,13 @@ public class ScholarsFragment extends Fragment {
 
         getScholars().observe(getViewLifecycleOwner(), results -> {
             Log.i("ScholarsFragment", "observing changes");
-            loading = false;
             List<Scholar> dataList = getScholars().getValue();
 
-            mAdapter.setOnItemClickListener(new ScholarAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(int item_pos) {
-                    System.out.println("Clicked " + item_pos);
-                    Intent intent = new Intent(ScholarsFragment.this.getContext(), ScholarDetailActivity.class);
-                    intent.putExtra("index", item_pos);
-                    startActivity(intent);
-                }
+            mAdapter.setOnItemClickListener(item_pos -> {
+                System.out.println("Clicked " + item_pos);
+                Intent intent = new Intent(ScholarsFragment.this.getContext(), ScholarDetailActivity.class);
+                intent.putExtra("index", item_pos);
+                startActivity(intent);
             });
 
             mAdapter.setDataSet(dataList);

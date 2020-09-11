@@ -16,8 +16,9 @@ public class HomeTabViewModel extends ViewModel {
 
     private MutableLiveData<List<EventBrief>> events;
     List<EventBrief> mList = new ArrayList<>();
+
     public LiveData<List<EventBrief>> getEvents() {
-        if(events ==null){
+        if (events == null) {
             events = new MutableLiveData<>();
             loadEventsAsync();
         }
@@ -35,37 +36,37 @@ public class HomeTabViewModel extends ViewModel {
     private String catalog;
 
 
-    private void loadEventsAsync( ){
+    private void loadEventsAsync() {
         // Do an asynchronous operation to fetch events for this catalog
-        new Thread(()->{
+        new Thread(() -> {
             Log.i("HomeTabViewModel", "loadEventsAsync");
 
             // when first launch, load previous data
-            if(mList == null || mList.size()==0){
+            if (mList == null || mList.size() == 0) {
                 mList = Repository.getInstance().loadLocalCache(catalog, 20);
                 events.postValue(mList);
             }
 
 
-            List<EventBrief> briefs = Repository.getInstance().refresh(catalog,20);
-            if(briefs.size()>0) {
+            List<EventBrief> briefs = Repository.getInstance().refresh(catalog, 20);
+            if (briefs.size() > 0) {
                 mList = briefs;
                 events.postValue(mList);
             }
         }).start();
     }
 
-    public void loadMoreAtBottom(){
-        new Thread(()->{
+    public void loadMoreAtBottom() {
+        new Thread(() -> {
 
-            List<EventBrief> briefs = Repository.getInstance().loadMoreEventBriefs(catalog, mList.size(),20);
+            List<EventBrief> briefs = Repository.getInstance().loadMoreEventBriefs(catalog, mList.size(), 20);
             mList.addAll(briefs);
             events.postValue(mList);
         }).start();
     }
 
 
-    public void refresh()  {
+    public void refresh() {
 
         // 拉长时间，不然看上去就好像没有更新一样
         try {
@@ -74,11 +75,12 @@ public class HomeTabViewModel extends ViewModel {
             e.printStackTrace();
         }
 
-        loadEventsAsync( );
+        loadEventsAsync();
     }
 
-    public void itemClicked( int pos){
+    public void itemClicked(int pos) {
         // TODO: a litter detour, maybe simpler?
+        // Update: maybe no
         events.getValue().get(pos).setAlreadyRead(true);
     }
 }

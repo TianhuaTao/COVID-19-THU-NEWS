@@ -64,20 +64,20 @@ public class LocalStorage {
 
         String content;
 
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         try (BufferedReader reader =
                      new BufferedReader(new FileReader(file))) {
 
             String line = reader.readLine();
             while (line != null) {
-                stringBuffer.append(line).append('\n');
+                stringBuilder.append(line).append('\n');
                 line = reader.readLine();
             }
         } catch (IOException e) {
             // Error occurred opening raw file for reading.
             e.printStackTrace();
         } finally {
-            content = stringBuffer.toString();
+            content = stringBuilder.toString();
         }
 
         return content;

@@ -65,7 +65,7 @@ public class Api {
         try (Response response = client.newCall(request).execute()) {
             InputStream inputStream = response.body().byteStream();
             bitmap = BitmapFactory.decodeStream(inputStream);
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e  ) {
             e.printStackTrace();
         }
 

@@ -20,6 +20,8 @@ import com.java.taotianhua.covidnews.model.EventBrief;
 import com.java.taotianhua.covidnews.R;
 import com.java.taotianhua.covidnews.ui.home.detail.NewsDetailActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +37,9 @@ public class HomeTabFragment extends Fragment {
     int position;
     String catalog;
     private boolean loading = false;
+
     public HomeTabFragment() {
     }
-
 
 
     @Override
@@ -47,17 +49,15 @@ public class HomeTabFragment extends Fragment {
             position = getArguments().getInt("position");
             catalog = getArguments().getString("catalog");
 
-            System.out.println("Catalog "+position+": "+catalog);
+            System.out.println("Catalog " + position + ": " + catalog);
         }
-
         mAdapter = new NewsAdapter(new ArrayList<>());
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if(homeTabViewModel==null){
+        if (homeTabViewModel == null) {
             homeTabViewModel = new ViewModelProvider(this).get(HomeTabViewModel.class);
             homeTabViewModel.setCatalog(catalog);
         }
@@ -68,21 +68,21 @@ public class HomeTabFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Log.i("HomeTabFragment "+position,"onViewCreated" );
-        swipeRefreshLayout = getView().findViewById(R.id.news_refresh_layout);
+        Log.i("HomeTabFragment " + position, "onViewCreated");
+        swipeRefreshLayout = view.findViewById(R.id.news_refresh_layout);
         refreshListener = () -> {
             swipeRefreshLayout.setRefreshing(true);
             // call api to refresh
-                Thread t =new Thread(()->{
-                    homeTabViewModel.refresh( );
-                    swipeRefreshLayout.setRefreshing(false);
+            Thread t = new Thread(() -> {
+                homeTabViewModel.refresh();
+                swipeRefreshLayout.setRefreshing(false);
 
-                });
-                t.start();
+            });
+            t.start();
         };
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
 
-        recyclerView = (RecyclerView) getView().findViewById(R.id.news_recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.news_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -103,7 +103,6 @@ public class HomeTabFragment extends Fragment {
                             loading = true;
                             Log.v("HomeTabFragment", "Last Item !");
                             homeTabViewModel.loadMoreAtBottom();
-
                         }
                     }
                 }
@@ -113,18 +112,18 @@ public class HomeTabFragment extends Fragment {
 
         homeTabViewModel.getEvents().observe(getViewLifecycleOwner(), events -> {
             // update UI
-            Log.i("HomeTabViewModel "+position,"observing changes");
+            Log.i("HomeTabViewModel " + position, "observing changes");
             loading = false;
 
             mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int item_pos) {
-                    List<EventBrief> dataList= homeTabViewModel.getEvents().getValue(); // get new data every time
-                    System.out.println("Clicked "+item_pos);
+                    List<EventBrief> dataList = homeTabViewModel.getEvents().getValue(); // get new data every time
+                    System.out.println("Clicked " + item_pos);
                     Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-                    intent.putExtra("id",dataList.get(item_pos).getId());
-                    intent.putExtra("title",dataList.get(item_pos).getTitle());
-                    homeTabViewModel.itemClicked(item_pos );
+                    intent.putExtra("id", dataList.get(item_pos).getId());
+                    intent.putExtra("title", dataList.get(item_pos).getTitle());
+                    homeTabViewModel.itemClicked(item_pos);
                     getContext().startActivity(intent);
                 }
             });

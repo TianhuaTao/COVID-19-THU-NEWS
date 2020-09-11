@@ -37,6 +37,7 @@ public class GraphFragment extends Fragment {
     private Spinner spinner_country, spinner_province, spinner_county;
     private Button mBtnQuery;
     private GraphViewModel graphViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         graphViewModel =
@@ -50,13 +51,13 @@ public class GraphFragment extends Fragment {
         spinner_county = (Spinner) root.findViewById(R.id.county_spinner);
         setSpinners();
 
-        mBtnQuery = (Button)root.findViewById(R.id.query_button);
+        mBtnQuery = (Button) root.findViewById(R.id.query_button);
         setBtnOnClickedListener();
         lineChart = (LineChart) root.findViewById(R.id.line_chart);
         setLineChartBasicFormat(lineChart);
         graphViewModel.getEpidemicData("World").observe(getViewLifecycleOwner(), epidemicData -> {
-            Log.d("Debug","开始重绘");
-            if(epidemicData == null){
+            Log.d("Debug", "开始重绘");
+            if (epidemicData == null) {
                 //要保证查询的字段存在才行
                 Log.e("NullException", "Json key error");
             }
@@ -72,7 +73,7 @@ public class GraphFragment extends Fragment {
             List<Entry> confirmedEntries = new ArrayList<>();
             List<Entry> curedEntries = new ArrayList<>();
             List<Entry> deadEntries = new ArrayList<>();
-            for(int i =0; i < confirmed.size(); ++i){
+            for (int i = 0; i < confirmed.size(); ++i) {
                 labelStr.add("day" + i);
                 confirmedEntries.add(new Entry(confirmed.get(i), i));
                 curedEntries.add(new Entry(cured.get(i), i));
@@ -101,11 +102,11 @@ public class GraphFragment extends Fragment {
 
             LineData mChartData = new LineData(labelStr, dataSets);
 
-            lineChart.setDescription("开始统计日期： "+begin);
+            lineChart.setDescription("开始统计日期： " + begin);
 
             lineChart.animateX(5000, Easing.EasingOption.EaseInOutSine);
             lineChart.setData(mChartData);
-            Log.d("Debug","结束重绘");
+            Log.d("Debug", "结束重绘");
         });
 
         return root;
@@ -113,10 +114,11 @@ public class GraphFragment extends Fragment {
 
     /**
      * 设置Line Chart的基本格式
+     *
      * @param lineChart
      */
 
-    private void setLineChartBasicFormat(LineChart lineChart){
+    private void setLineChartBasicFormat(LineChart lineChart) {
         lineChart.setNoDataText("正在读取数据");
         YAxis yAxis = lineChart.getAxisLeft();
         yAxis.setDrawZeroLine(true);
@@ -126,13 +128,12 @@ public class GraphFragment extends Fragment {
             public String getFormattedValue(float value, YAxis yAxis) {
                 int v = (int) value;
                 DecimalFormat format = new DecimalFormat("0.00");
-                if(v >= 1000000) {
-                    return format.format(value/1000000) + "百万人";
+                if (v >= 1000000) {
+                    return format.format(value / 1000000) + "百万人";
+                } else if (v >= 10000) {
+                    return format.format(value / 10000) + "万人";
                 }
-                else if(v >= 10000){
-                    return  format.format(value/10000) + "万人";
-                }
-                return (int)value + "人";
+                return (int) value + "人";
             }
         });
     }
@@ -141,9 +142,9 @@ public class GraphFragment extends Fragment {
      * 设置spinner选框的数据
      */
 
-    private void setSpinners(){
+    private void setSpinners() {
 //        final String []spinnerItems = {"China", "United States of America", "Russia"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,RegionQuery.getCountryList());
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, RegionQuery.getCountryList());
         spinner_country.setAdapter(spinnerAdapter);
 
         spinner_country.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -151,27 +152,29 @@ public class GraphFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = spinner_country.getSelectedItem().toString();
                 //将province设置成所选城市对应的省份列表（若无则为空）
-                final String []provinceItem = RegionQuery.getProvinceList(getContext(), selected);
-                ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,provinceItem);
+                final String[] provinceItem = RegionQuery.getProvinceList(getContext(), selected);
+                ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, provinceItem);
                 spinner_province.setAdapter(provinceAdapter);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
         int postion = spinnerAdapter.getPosition("World"); //
-        spinner_country.setSelection(postion,true);
+        spinner_country.setSelection(postion, true);
 
         spinner_province.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = spinner_province.getSelectedItem().toString();
                 //将county的item设置
-                final String []countyItem = RegionQuery.getCountyList(getContext(), selected);
+                final String[] countyItem = RegionQuery.getCountyList(getContext(), selected);
                 ArrayAdapter<String> countyAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, countyItem);
                 spinner_county.setAdapter(countyAdapter);
 //                graphViewModel.getEpidemicData(spinner_country.getSelectedItem().toString(), selected);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -179,7 +182,7 @@ public class GraphFragment extends Fragment {
         });
     }
 
-    private void setBtnOnClickedListener(){
+    private void setBtnOnClickedListener() {
         mBtnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

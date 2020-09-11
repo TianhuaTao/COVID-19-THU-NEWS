@@ -280,7 +280,7 @@ public class Repository {
     public List<Entity> queryEntity(String query) {
         List<Entity> entityList = new ArrayList<>();
         String json = Api.queryEntityJson(query);
-//        System.out.println(json);
+
 
         if (json == null) {
             return entityList;
@@ -383,8 +383,7 @@ public class Repository {
     }
 
 
-    ArrayList<Scholar> scholarsList;
-
+    ArrayList<Scholar> scholarsList;    // cache
     public List<Scholar> loadAllScholars() {
         Log.i("Repository", "loadAllScholars");
         if (scholarsList != null && scholarsList.size() > 5)     // initialized and succeeded
@@ -413,13 +412,13 @@ public class Repository {
     }
     /* ***************************************************************************************** */
 
-    public static List<EventBrief> getCertainTypeEventBreif(Context context, String type){
+    public static List<EventBrief> getCertainTypeEventBreif(Context context, String type) {
         List<EventBrief> list = new ArrayList<>();
         try {
             JSONObject jObject = new JSONObject(getJson(context, "label.json"));
             JSONArray allEventId = jObject.getJSONArray(type);
 
-            for(int i = 0; i < allEventId.length(); ++i){
+            for (int i = 0; i < allEventId.length(); ++i) {
                 String id = allEventId.getString(i);
                 list.add(Repository.getInstance().getEventBriefById(id));
             }
@@ -429,20 +428,22 @@ public class Repository {
         }
         return list;
     }
+
     /**
      * 从assets中获得Json
+     *
      * @param context
      * @param fileName
      * @return
      */
-    public static String getJson(Context context, String fileName){
+    public static String getJson(Context context, String fileName) {
         StringBuilder stringBuilder = new StringBuilder();
         //获得assets资源管理器
-        AssetManager assetManager =context.getAssets();
+        AssetManager assetManager = context.getAssets();
         //使用IO流读取json文件内容
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName),"utf-8"));
+                    assetManager.open(fileName), "utf-8"));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -452,77 +453,5 @@ public class Repository {
         }
         return stringBuilder.toString();
     }
-    /* ******************************* Old interface ******************************************* */
-
-//    public String getNewsDetailJson(String id) {
-//        Log.i("Repository", "getNewsDetailJson");
-//        if (LocalStorage.exist("json", id)) {
-//            String content = LocalStorage.load("json", id);
-//            if (content == null || content.length() == 0) {
-//                content = Api.getNewsDetailJson(id);
-//                LocalStorage.store("json", id, content);
-//            }
-//            return content;
-//
-//        } else {
-//            String content = Api.getNewsDetailJson(id);
-//            if (content != null)
-//                LocalStorage.store("json", id, content);
-//            return content;
-//        }
-//    }
-
-//    private List<EventBrief> allEventBriefs;
-//    private LocalDateTime lastUpdated = null;
-
-//    private boolean expired() {
-//        if (lastUpdated == null) return true;
-//
-//        LocalDateTime now = LocalDateTime.now();
-//
-//        Duration duration = Duration.between(lastUpdated, now);
-//        long diff = Math.abs(duration.toMinutes());
-//
-//        return diff > 5;
-//    }
-
-//    public  void refreshAllEvents(){
-//        String listJson = Api.getAllEventsJson();
-//        List<EventBrief> briefs = new ArrayList<>();
-//        try {
-//            JSONObject jObject = new JSONObject(listJson);
-//            JSONArray data= jObject.getJSONArray("datas");
-//
-//            for (int i = 0; i < data.length(); i++) {
-//                EventBrief brief = EventBrief.fromJson(data.getJSONObject(i));
-//                briefs.add(brief);
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        allEventBriefs = briefs;
-//        lastUpdated = LocalDateTime .now();
-//        System.out.println(getAllCatalogs());
-//    }
-
-
-//    public  List<EventBrief>  getAllEvents(){
-//        if(allEventBriefs==null || expired()){
-//            refreshAllEvents();
-//        }
-//        return allEventBriefs.stream().limit(200).collect(Collectors.toList());
-//    }
-//
-//
-//    public  List<String>  getAllCatalogs(){
-//        if(allEventBriefs==null || expired()){
-//            return null;
-//        }
-//        return allEventBriefs.stream()
-//                .map(EventBrief::getType)
-//                .distinct()
-//                .collect(Collectors.toList());
-//    }
 
 }

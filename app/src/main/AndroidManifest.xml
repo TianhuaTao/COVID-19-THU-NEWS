@@ -6,26 +6,26 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.java.taotianhua.covidnews.COVIDNewsApplication"
+        android:name=".COVIDNewsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
-        <activity android:name="com.java.taotianhua.covidnews.ui.home.detail.ShareNewsActivity"></activity>
-        <activity android:name="com.java.taotianhua.covidnews.ui.home.NewsHistoryActivity" />
-        <activity android:name="com.java.taotianhua.covidnews.ui.scholars.ScholarDetailActivity" />
-        <activity android:name="com.java.taotianhua.covidnews.ui.epidemic.entity.search.detail.EntityDetailActivity" />
-        <activity android:name="com.java.taotianhua.covidnews.ui.home.detail.NewsDetailActivity" />
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.user.AboutActivity"></activity>
+        <activity android:name=".ui.home.detail.ShareNewsActivity" />
+        <activity android:name=".ui.home.NewsHistoryActivity" />
+        <activity android:name=".ui.scholars.ScholarDetailActivity" />
+        <activity android:name=".ui.epidemic.entity.search.detail.EntityDetailActivity" />
+        <activity android:name=".ui.home.detail.NewsDetailActivity" />
         <activity
-            android:name="com.java.taotianhua.covidnews.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.java.taotianhua.covidnews.ui.home.NewsSearchResultActivity">
+        <activity android:name=".ui.home.NewsSearchResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -42,7 +42,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name="com.java.taotianhua.covidnews.ui.epidemic.entity.search.SearchEntityActivity">
+        <activity android:name=".ui.epidemic.entity.search.SearchEntityActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

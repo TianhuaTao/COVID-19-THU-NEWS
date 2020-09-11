@@ -31,11 +31,9 @@ import com.java.taotianhua.covidnews.R;
 
 public class HomeFragment extends Fragment {
 
-    ViewPager viewPager;
-    HomePagerAdapter homePagerAdapter;
-
+    private ViewPager viewPager;
+    private HomePagerAdapter homePagerAdapter;
     private HomeViewModel homeViewModel;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,8 +42,6 @@ public class HomeFragment extends Fragment {
 
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -57,7 +53,6 @@ public class HomeFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
 
-
         setHasOptionsMenu(true);
     }
 
@@ -66,16 +61,14 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.top_home_menu,menu);
-
+        inflater.inflate(R.menu.top_home_menu, menu);
 
         SearchManager searchManager =
-                (SearchManager) getActivity(). getSystemService(Context.SEARCH_SERVICE);
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
         SearchableInfo searchableInfo = searchManager.getSearchableInfo(
                 new ComponentName(getActivity(),
                         NewsSearchResultActivity.class));
-
 
         SearchView searchView = (SearchView) menu.findItem(R.id.home_search_view).getActionView();
         searchView.setSearchableInfo(searchableInfo);
@@ -85,10 +78,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-       super.onOptionsItemSelected(item);
+        super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.settings_menu_item) {
-
             FragmentTransaction ft = getFragmentManager().beginTransaction();
             Fragment prev = getFragmentManager().findFragmentByTag("catalog_dialog");
             if (prev != null) {
@@ -98,7 +90,7 @@ public class HomeFragment extends Fragment {
             DialogFragment dialogFragment = new CatalogDialogFragment(this.homeViewModel);
             dialogFragment.show(ft, "catalog_dialog");
             return true;
-        }else if(item.getItemId()==R.id.history_menu_item){
+        } else if (item.getItemId() == R.id.history_menu_item) {
             Intent intent = new Intent(this.getContext(), NewsHistoryActivity.class);
             startActivity(intent);
         }
